@@ -26,74 +26,45 @@ import java.util.TreeSet;
 
 public class SimulatedAnnealing
 {
-    public static Random randomizer = new Random();
 
-    public static boolean foolish = false;
-    public static int perturbSel = 0;
-    public static int nValue = 0;
+    public static boolean foolish = false;//选择效率较慢的爬山算法,还是模拟退火算法 (0 = Simulated Annealing, 1 = Foolish Hill-climber)
+    public static double tempVal = 60;//初始化温度 (40-60)
+    public static double aValue = 0.95;//每次降温到原来温度的0.95倍  (.95-.99)
+    public static double tempThreshold = 3;//温度的阀值，到达该温度停止  原计算方式 tempThreshold *= tempVal;取值范围(.01-.05)
+    public static int numIter = 1000;//迭代的次数 (1000-5000)
+    public static double bValue = 1.05;//每次迭代后扩大为原来的1.05倍 (1.01-1.05)
+    public static int perturbSel = 1;//选择 N-Point 还是 N-Slice   改变方式 (0 = N-Point Perturbation, 1 = N-Slice Inversion)
+    public static int nValue = 3;//反转的位数是几个  (1-3)
 
-    public static double tempVal = 50;
-    public static double tempThreshold = 1;
-    public static int numIter = 1000;
-    public static double aValue = 0.95;
-    public static double bValue = 1.05;
+
+    public static Random randomizer = new Random();//用来产生随机数的类
 
     //01-Knapsack's variables
-    static int capacity = 0;
-    static int numItems = 0;
-    static int totalValue = 0;
+    static int capacity = 0;//背包容量
+    static int numItems = 0;//物品数量
+    static int totalValue = 0;//所有物品总价值
     static double penalty = 0;
     static double offset = 0;
-
     static boolean optimalKnown = false;
     static boolean[] optimal;
     static double optimalFitness;
-    static ArrayList<Integer> values = new ArrayList<Integer>();
-    static ArrayList<Integer> sizes = new ArrayList<Integer>();
+    static ArrayList<Integer> values = new ArrayList<Integer>();//所有物品价值的数组
+    static ArrayList<Integer> sizes = new ArrayList<Integer>();//物品体积的数组
 
     public static void main(String[] args)
     {
         //-----------------------------------------------------------------------------------------
         // Step 1: Get User Input
         Scanner inputReader = new Scanner(System.in);
-
-        System.out.print("Choose technique (0 = Simulated Annealing, 1 = Foolish Hill-climber): ");
-        int answer = inputReader.nextInt();
-        if(answer == 1)
-            foolish = true;
-        else
-            foolish = false;
-
-        System.out.print("Choose initial temperature (40-60): ");
-        tempVal = inputReader.nextDouble();
-
-        System.out.print("Choose fraction of temperature for termination threshold (.01-.05): ");
-        tempThreshold = inputReader.nextDouble();
-        tempThreshold *= tempVal;
-
-        System.out.print("Choose initial number of iterations (1000-5000): ");
-        numIter = inputReader.nextInt();
-
-        System.out.print("Choose alpha value (.95-.99): ");
-        aValue = inputReader.nextDouble();
-
-        System.out.print("Choose beta value (1.01-1.05): ");
-        bValue = inputReader.nextDouble();
-
-        System.out.print("Choose perturbation function (0 = N-Point Perturbation, 1 = N-Slice Inversion): ");
-        perturbSel = inputReader.nextInt();
-
-        System.out.print("Provide a value for n (1-3): ");
-        nValue = inputReader.nextInt();
-
         int notFound;
         String prefix;
         System.out.print("Enter dataset prefix: ");
 
-        File source = new File(System.getProperty("java.class.path"));
-        String binDirectory = source.getAbsoluteFile().getParentFile().toString()+File.separator;
+//        File source = new File(System.getProperty("java.class.path"));
+//        String binDirectory = source.getAbsoluteFile().getParentFile().toString()+File.separator;
+        String binDirectory="C:/Users/Administrator/Desktop/";
         System.out.println("\nbinDirectory " + binDirectory + "...");
-
+//C:\Users\Administrator\.android\build-cache\6281359163a70a5a223f596739b66f5a2593ffab\output\res
         do // Check for the presence of the dataset.
         {
             notFound = 0;
@@ -187,7 +158,7 @@ public class SimulatedAnnealing
         offset *= .3;
 
         //Uncomment to test SA components.
-        //testBattery();
+//        testBattery();
 
         //bit strings as a boolean array
         boolean[] sol = new boolean[numItems];
@@ -207,16 +178,21 @@ public class SimulatedAnnealing
         // Step 3: Perform Simulated Annealing
         while(tempVal > tempThreshold)
         {
+            //开始迭代
             for( int i = 0; i < numIter; i++ )
             {
-                boolean[] newSol;
+                boolean[] newSol;//用来保存新产生的组合
+                //选择不同的方式来变化组合方式
                 if(perturbSel == 1)
                     newSol = perturbNSlice(sol, nValue);
                 else
                     newSol = perturbNPoint(sol, nValue);
+                //计数加1
                 pSoFar++;
 
+                //计算符合度
                 double newFitness = fitness(newSol);
+
 
                 if( newFitness >= solFitness || (!foolish && (randomizer.nextDouble()) < Math.exp((newFitness-solFitness)/tempVal)) )
                 {
@@ -234,7 +210,7 @@ public class SimulatedAnnealing
             }
             tempVal *= aValue;
             numIter *= bValue;
-
+            System.out.println("当前迭代的次数："+numIter);
             //Print user information.
             System.out.println("Current Temperature: "+tempVal);
             if(optimalKnown)
@@ -332,8 +308,9 @@ public class SimulatedAnnealing
     public static double fitness( boolean[] c )
     {
         //Get the chromosome's value
-        int runningValue = getChromValue(c);
-        int runningSize = getChromSize(c);
+        int runningValue = getChromValue(c);//当前组合的总价值
+        int runningSize = getChromSize(c);//当前组合的总体积
+        //判断当前体积是否大于背包容量
         if( runningSize > capacity )
         {
             double returnMe = runningValue - ((runningSize - capacity) * penalty + offset);
