@@ -53,6 +53,11 @@ public class SimulatedAnnealing
 
     public static void main(String[] args)
     {
+//        boolean[] test = new boolean[]{false,false,false,false,false,true,false,false,};
+
+
+
+
         //-----------------------------------------------------------------------------------------
         // Step 1: Get User Input
         Scanner inputReader = new Scanner(System.in);
@@ -64,7 +69,6 @@ public class SimulatedAnnealing
 //        String binDirectory = source.getAbsoluteFile().getParentFile().toString()+File.separator;
         String binDirectory="C:/Users/Administrator/Desktop/";
         System.out.println("\nbinDirectory " + binDirectory + "...");
-//C:\Users\Administrator\.android\build-cache\6281359163a70a5a223f596739b66f5a2593ffab\output\res
         do // Check for the presence of the dataset.
         {
             notFound = 0;
@@ -115,7 +119,7 @@ public class SimulatedAnnealing
             }
             pScanner.close();
 
-            if(optimalKnown)
+            if(optimalKnown)//判断存在_s.txt，转化为optimal boolean数组
             {
                 System.out.println("Getting "+prefix+"_s.txt");
                 Scanner sScanner = new Scanner(new File(binDirectory+prefix+"_s.txt"));
@@ -194,28 +198,32 @@ public class SimulatedAnnealing
                 double newFitness = fitness(newSol);
 
 
+                //新产生的较优秀 或者满足 一定的概率接受当前的任何解   更新当前的组合
                 if( newFitness >= solFitness || (!foolish && (randomizer.nextDouble()) < Math.exp((newFitness-solFitness)/tempVal)) )
                 {
                     sol = newSol;
                     solFitness = newFitness;
                 }
 
-                if(solFitness > bestFitness && getChromSize(sol) < capacity)
+                //更新最新的最优解
+                if(solFitness > bestFitness && getChromSize(sol) <= capacity)
                 {
+
                     for(int j = 0; j < numItems; j++)
                         bestSol[j] = sol[j];
                     bestFitness = solFitness;
                     pOfBest = pSoFar;
                 }
             }
-            tempVal *= aValue;
-            numIter *= bValue;
+            tempVal *= aValue;//降温
+            numIter *= bValue;//更新迭代的次数
             System.out.println("当前迭代的次数："+numIter);
             //Print user information.
             System.out.println("Current Temperature: "+tempVal);
             if(optimalKnown)
             {
                 double percent = (solFitness/optimalFitness)*100;
+                System.out.println("solFitness::"+solFitness+"optimalFitness::"+optimalFitness+"percent:"+percent);
                 System.out.printf("Current Fitness: %,.2f%% of known optimal.\n" , percent);
             }
             else
@@ -258,20 +266,22 @@ public class SimulatedAnnealing
             }
         }
 
-        if(optimalKnown)
-        {
-            System.out.println("\nOptimal Solution: " + optStr);
-            System.out.println("Optimal Fitness: " + optimalFitness);
-            System.out.println("Optimal Size out of Capacity: " + optSize + "/" + capacity);
-            System.out.println("Optimal Value: " + optValue );
-        }
-        else
-        {
-            sameAsOptimal = false;
-        }
+        if(optimalKnown)//输出最优值
+    {
+        System.out.println("\nOptimal Solution: " + optStr);
+        System.out.println("Optimal Fitness: " + optimalFitness);
+        System.out.println("Optimal Size out of Capacity: " + optSize + "/" + capacity);
+        System.out.println("Optimal Value: " + optValue );
+    }
+    else
+    {
+        sameAsOptimal = false;
+    }
 
         System.out.println("\nFinal Solution: " + solStr);
-        System.out.println("Fitness: " + bestFitness);
+        System.out.println("bestFitness: " + fitness(bestSol));
+        System.out.println("solFitness: " + fitness(sol));
+
         if(optimalKnown)
         {
             double percent = (bestFitness/optimalFitness)*100;
@@ -284,7 +294,7 @@ public class SimulatedAnnealing
         System.out.println("Number of perturbations to find: " + pOfBest);
     }
 
-
+/********************************* 以下是调用的各种方法 ***************************/
     /**
      * fitness represents the following function:
      *
@@ -317,9 +327,17 @@ public class SimulatedAnnealing
             if (returnMe < 0)
                 return 0;
             else
+            if (returnMe==309.0){
+                System.out.println("找到了最优解");
+            }
                 return returnMe;
+
+
         }
         else
+        if (runningValue==309.0){
+            System.out.println("找到了最优解");
+        }
             return runningValue;
     }
 
