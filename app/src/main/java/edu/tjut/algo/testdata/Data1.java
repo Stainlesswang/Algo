@@ -8,10 +8,12 @@ import java.util.List;
  */
 
 public class Data1 {
+    //全部重量的list集合
     private List<Integer> weight=new ArrayList<>();
+    //全部价值的list集合
     private List<Integer> values=new ArrayList<>();
     private int capacity;
-
+    private Boolean[] optimal;
     public Data1(List weight,List values,int capacity){
         this.weight=weight;
         this.values=values;
@@ -39,5 +41,13 @@ public class Data1 {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    public Boolean[] getOptimal() {
+        return optimal;
+    }
+
+    public void setOptimal(Boolean[] optimal) {
+        this.optimal = optimal;
     }
 }
