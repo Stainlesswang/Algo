@@ -27,7 +27,7 @@ import java.util.TreeSet;
 public class SimulatedAnnealing
 {
 
-    public static boolean foolish = false;//选择效率较慢的爬山算法,还是模拟退火算法 (0 = Simulated Annealing, 1 = Foolish Hill-climber)
+    public static boolean foolish = false;//true选择效率较慢的爬山算法,false模拟退火算法 (false = Simulated Annealing, true = Foolish Hill-climber)
     public static double tempVal = 60;//初始化温度 (40-60)
     public static double aValue = 0.95;//每次降温到原来温度的0.95倍  (.95-.99)
     public static double tempThreshold = 3;//温度的阀值，到达该温度停止  原计算方式 tempThreshold *= tempVal;取值范围(.01-.05)
@@ -199,6 +199,7 @@ public class SimulatedAnnealing
 
 
                 //新产生的较优秀 或者满足 一定的概率接受当前的任何解   更新当前的组合
+                //此处是模拟退火算法的关键，当foolish=false的时候  !foolish=true，此时以一定的条件来接受比当前解
                 if( newFitness >= solFitness || (!foolish && (randomizer.nextDouble()) < Math.exp((newFitness-solFitness)/tempVal)) )
                 {
                     sol = newSol;
@@ -327,17 +328,11 @@ public class SimulatedAnnealing
             if (returnMe < 0)
                 return 0;
             else
-            if (returnMe==309.0){
-                System.out.println("找到了最优解");
-            }
                 return returnMe;
 
 
         }
         else
-        if (runningValue==309.0){
-            System.out.println("找到了最优解");
-        }
             return runningValue;
     }
 
