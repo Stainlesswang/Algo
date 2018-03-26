@@ -7,17 +7,21 @@ import java.util.List;
  * Created by Administrator on 2018/3/25.
  */
 
-public class Data1 {
+public class TestData {
     //全部重量的list集合
     private List<Integer> weight=new ArrayList<>();
     //全部价值的list集合
     private List<Integer> values=new ArrayList<>();
     private int capacity;
     private Boolean[] optimal;
-    public Data1(List weight,List values,int capacity){
+    private  int numItems;//物品数量
+    private int totalValue = 0;//所有物品总价值
+    public TestData(List weight, List values, int capacity,int numItems,int totalValue){
         this.weight=weight;
         this.values=values;
         this.capacity=capacity;
+        this.numItems=numItems;
+        this.totalValue=totalValue;
     }
     public List<Integer> getWeight() {
         return weight;
@@ -49,5 +53,21 @@ public class Data1 {
 
     public void setOptimal(Boolean[] optimal) {
         this.optimal = optimal;
+    }
+
+    public int getNumItems() {
+        return numItems;
+    }
+
+    public void setNumItems(int numItems) {
+        this.numItems = numItems;
+    }
+
+    public int getTotalValue() {
+        return totalValue;
+    }
+
+    public void setTotalValue(int totalValue) {
+        this.totalValue = totalValue;
     }
 }

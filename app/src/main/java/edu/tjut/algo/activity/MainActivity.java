@@ -10,6 +10,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import java.io.File;
+import java.io.InputStream;
+import java.util.Scanner;
+
 import edu.tjut.algo.R;
 import edu.tjut.algo.fragment.DashboardFragment;
 import edu.tjut.algo.fragment.EditFragment;
