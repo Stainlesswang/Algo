@@ -7,6 +7,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -18,7 +19,7 @@ import edu.tjut.algo.fragment.DashboardFragment;
 import edu.tjut.algo.fragment.EditFragment;
 import edu.tjut.algo.fragment.HomeFragment;
 import edu.tjut.algo.testdata.TestData;
-public class MainActivity extends FragmentActivity implements DashboardFragment.OnFragmentInteractionListener,EditFragment.OnFragmentInteractionListener
+public class MainActivity extends AppCompatActivity implements DashboardFragment.OnFragmentInteractionListener,EditFragment.OnFragmentInteractionListener
         ,HomeFragment.OnFragmentInteractionListener{
     private TextView mTextMessage;
     private FrameLayout fl;
