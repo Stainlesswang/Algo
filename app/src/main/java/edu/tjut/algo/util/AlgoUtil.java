@@ -1,12 +1,11 @@
-package edu.tjut.algo;
+package edu.tjut.algo.util;
 
 import android.content.Context;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import edu.tjut.algo.sa.SimulatedAnnealing;
 import edu.tjut.algo.testdata.TestData;
 
 /**
@@ -22,7 +21,7 @@ public class AlgoUtil {
          int capacity = 0;//背包容量
          boolean[] optimal;//用来保存最优解的boole数组
         int totalValue = 0;//所有物品总价值
-
+        double optimalFitness;
         //获取背包的总容量
         Scanner cScanner = new Scanner(context.getResources().openRawResource(textEnum.c));
         capacity = cScanner.nextInt();
@@ -38,7 +37,7 @@ public class AlgoUtil {
         wScanner.close();
 
 
-        //获取价值数组
+        //获取价值数组，和全部物品的价值
         Scanner pScanner = new Scanner(context.getResources().openRawResource(textEnum.p));
         while(pScanner.hasNextInt())
         {
@@ -46,8 +45,7 @@ public class AlgoUtil {
             totalValue += values.get(values.size()-1);
         }
         pScanner.close();
-
-
+        //获取txt文件中的最优解，以及最优的组合的价值
             Scanner sScanner = new Scanner(context.getResources().openRawResource(textEnum.s));
             optimal = new boolean[numItems];
             for(int i = 0; i < numItems && sScanner.hasNextInt(); i++)
@@ -57,7 +55,9 @@ public class AlgoUtil {
                 else
                     optimal[i] = true;
             }
+         optimalFitness =new SimulatedAnnealing().fitness(optimal);
             sScanner.close();
-        return new TestData(sizes,values,capacity,numItems,totalValue,optimal);
+        //将获取到的参数注入到TestData 对象中方便使用
+        return new TestData(sizes,values,capacity,numItems,totalValue,optimal,optimalFitness);
     }
 }

@@ -1,5 +1,5 @@
-package edu.tjut.algo;
-
+package edu.tjut.algo.util;
+import edu.tjut.algo.R;
 /**
  * Created by Administrator on 2018/3/26.
  *一些变量的枚举类，就是将一个一个都列出来，方便使用
