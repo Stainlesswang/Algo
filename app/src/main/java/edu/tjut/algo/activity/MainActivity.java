@@ -10,16 +10,14 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
-import java.io.File;
-import java.io.InputStream;
-import java.util.Scanner;
-
+import android.widget.Toast;
+import edu.tjut.algo.AlgoUtil;
 import edu.tjut.algo.R;
+import edu.tjut.algo.TextEnum;
 import edu.tjut.algo.fragment.DashboardFragment;
 import edu.tjut.algo.fragment.EditFragment;
 import edu.tjut.algo.fragment.HomeFragment;
-
+import edu.tjut.algo.testdata.TestData;
 public class MainActivity extends FragmentActivity implements DashboardFragment.OnFragmentInteractionListener,EditFragment.OnFragmentInteractionListener
         ,HomeFragment.OnFragmentInteractionListener{
     private TextView mTextMessage;
@@ -58,6 +56,9 @@ public class MainActivity extends FragmentActivity implements DashboardFragment.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        TestData testData=AlgoUtil.getDataFromTxt(getApplicationContext(), TextEnum.TXT_P02);
+        Toast.makeText(getApplicationContext(),testData.toString(),
+                Toast.LENGTH_SHORT).show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fl = (FrameLayout) findViewById(R.id.content);
@@ -99,7 +100,6 @@ public class MainActivity extends FragmentActivity implements DashboardFragment.
                 .show(homeFragment)
                 .commit();
     }
-
     @Override
     public void onFragmentInteraction(Uri uri) {
 

@@ -13,15 +13,16 @@ public class TestData {
     //全部价值的list集合
     private List<Integer> values=new ArrayList<>();
     private int capacity;
-    private Boolean[] optimal;
+    private boolean[] optimal;
     private  int numItems;//物品数量
     private int totalValue = 0;//所有物品总价值
-    public TestData(List weight, List values, int capacity,int numItems,int totalValue){
+    public TestData(List weight, List values, int capacity,int numItems,int totalValue,boolean[] optimal){
         this.weight=weight;
         this.values=values;
         this.capacity=capacity;
         this.numItems=numItems;
         this.totalValue=totalValue;
+        this.optimal=optimal;
     }
     public List<Integer> getWeight() {
         return weight;
@@ -47,11 +48,11 @@ public class TestData {
         this.capacity = capacity;
     }
 
-    public Boolean[] getOptimal() {
+    public boolean[] getOptimal() {
         return optimal;
     }
 
-    public void setOptimal(Boolean[] optimal) {
+    public void setOptimal(boolean[] optimal) {
         this.optimal = optimal;
     }
 
@@ -69,5 +70,11 @@ public class TestData {
 
     public void setTotalValue(int totalValue) {
         this.totalValue = totalValue;
+    }
+
+    @Override
+    public String toString() {
+        return " weight: "+weight.toString()+" values: "+values.toString()+"optimal: "+optimal.toString()
+                +" capacity: "+capacity+" totalValue: "+totalValue+" numItems: "+numItems;
     }
 }

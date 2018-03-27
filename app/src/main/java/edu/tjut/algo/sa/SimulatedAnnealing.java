@@ -23,7 +23,6 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.TreeSet;
-
 public class SimulatedAnnealing
 {
 
@@ -53,6 +52,10 @@ public class SimulatedAnnealing
 
     public static void main(String[] args)
     {
+
+
+
+
 //        boolean[] test = new boolean[]{false,false,false,false,false,true,false,false,};
 
 
@@ -425,44 +428,6 @@ public class SimulatedAnnealing
         }
 
         return s;
-    }
-
-    public static void testBattery()
-    {
-        boolean[] testC = new boolean[numItems];
-        for(int i = 0; i < numItems; i++)
-            testC[i] = randomizer.nextBoolean();
-
-        System.out.println("Testing Fitness Function...");
-        System.out.println("Random chromosome: " + chromToString(testC));
-        int tempS = getChromSize(testC);
-        System.out.println("Total Size: " + tempS);
-        System.out.println("Total Value: " + getChromValue(testC));
-        System.out.println("Capacity: " + capacity);
-        System.out.println("Penalty: " + penalty);
-        System.out.println("Offset: " + offset);
-        System.out.println("Fitness Function Output: " + fitness(testC));
-        System.out.println("(Hand-calculate fitness and compare to test.)");
-
-        System.out.println("\nTesting N-Point Perturbation (n = 2)...");
-        System.out.println("Before: " + chromToString(testC));
-        perturbNPoint(testC,2);
-        System.out.println("After:  " + chromToString(testC));
-        System.out.println("\nTesting N-Point Perturbation (n = 3)...");
-        System.out.println("Before: " + chromToString(testC));
-        perturbNPoint(testC,3);
-        System.out.println("After:  " + chromToString(testC));
-
-        System.out.println("\nTesting N-Slice Perturbation (n = 2)...");
-        System.out.println("Before: " + chromToString(testC));
-        perturbNSlice(testC,2);
-        System.out.println("After:  " + chromToString(testC));
-        System.out.println("\nTesting N-Slice Perturbation (n = 3)...");
-        System.out.println("Before: " + chromToString(testC));
-        perturbNSlice(testC,3);
-        System.out.println("After:  " + chromToString(testC));
-
-        System.out.println("\nTesting finished.\n");
     }
 
     /**

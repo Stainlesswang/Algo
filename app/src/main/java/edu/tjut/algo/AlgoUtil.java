@@ -58,6 +58,6 @@ public class AlgoUtil {
                     optimal[i] = true;
             }
             sScanner.close();
-        return new TestData(sizes,values,capacity,numItems,totalValue);
+        return new TestData(sizes,values,capacity,numItems,totalValue,optimal);
     }
 }
