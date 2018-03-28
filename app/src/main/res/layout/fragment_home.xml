@@ -10,5 +10,9 @@
         android:layout_height="match_parent"
         android:textColor="@color/colorAccent"
         android:text="@string/title_home" />
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </FrameLayout>
