@@ -9,6 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.tjut.algo.R;
 
@@ -61,13 +68,27 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+      View view=  inflater.inflate(R.layout.fragment_home, container, false);
+
+        LineChart chart= (LineChart) view.findViewById(R.id.chart);
+        List<Entry> entries=new ArrayList<Entry>();
+        entries.add(0,new Entry(3f,2));
+        entries.add(1,new Entry(5.0f,3));
+        entries.add(2,new Entry(8.0f,4));
+        LineDataSet dataSet=new LineDataSet(entries,"labe1");
+        LineData lineData=new LineData(dataSet);
+        chart.setData(lineData);
+        chart.invalidate();
+        return view;
 
     }
 

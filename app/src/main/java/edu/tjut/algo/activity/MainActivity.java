@@ -12,6 +12,16 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.tjut.algo.util.AlgoUtil;
 import edu.tjut.algo.R;
 import edu.tjut.algo.util.TextEnum;
@@ -67,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements DashboardFragment
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         initFragments();
+
     }
     /**
      * 切换Fragment
