@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -13,22 +12,13 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.utils.Utils;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import edu.tjut.algo.util.AlgoUtil;
 import edu.tjut.algo.R;
 import edu.tjut.algo.util.TextEnum;
 import edu.tjut.algo.fragment.DashboardFragment;
 import edu.tjut.algo.fragment.EditFragment;
 import edu.tjut.algo.fragment.HomeFragment;
-import edu.tjut.algo.testdata.TestData;
+import edu.tjut.algo.date.TestData;
 public class MainActivity extends AppCompatActivity implements DashboardFragment.OnFragmentInteractionListener,EditFragment.OnFragmentInteractionListener
         ,HomeFragment.OnFragmentInteractionListener{
     private TextView mTextMessage;

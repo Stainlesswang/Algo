@@ -1,10 +1,10 @@
-package edu.tjut.algo.testdata;
+package edu.tjut.algo.date;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Administrator on 2018/3/25.
+ * 封装测试物品的信息，方便使用和管理
  */
 public class TestData {
     //全部重量的list集合

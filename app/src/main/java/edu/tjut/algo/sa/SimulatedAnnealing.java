@@ -6,7 +6,7 @@ import java.util.Random;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
-import edu.tjut.algo.testdata.TestData;
+import edu.tjut.algo.date.TestData;
 
 public class SimulatedAnnealing
 {
