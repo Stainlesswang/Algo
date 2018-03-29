@@ -19,6 +19,7 @@ public class SimulatedAnnealing
     public static double bValue = 1.05;//每次迭代后扩大为原来的1.05倍 (1.01-1.05)
     public static int perturbSel = 1;//选择 N-Point 还是 N-Slice   改变方式 (0 = N-Point Perturbation, 1 = N-Slice Inversion)
     public static int nValue = 3;//反转的位数是几个  (1-3)
+
     public static Random randomizer = new Random();//用来产生随机数的类
 
     //01-Knapsack's variables
