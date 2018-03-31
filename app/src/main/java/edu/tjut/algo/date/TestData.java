@@ -19,8 +19,10 @@ public class TestData {
     //penalty，offset是一定规则算出的物品误差偏移值，可以不用考虑
     double penalty = 0;
      double offset=0;
+    int dataID=0;
 
-    public TestData(ArrayList<Integer> weight, ArrayList<Integer> values, int capacity,int numItems,int totalValue,boolean[] optimal,double optimalFitness){
+    public TestData(ArrayList<Integer> weight, ArrayList<Integer> values, int capacity,
+                    int numItems,int totalValue,boolean[] optimal,double optimalFitness,int dataID){
         this.weight=weight;
         this.values=values;
         this.capacity=capacity;
@@ -28,6 +30,7 @@ public class TestData {
         this.totalValue=totalValue;
         this.optimal=optimal;
         this.optimalFitness=optimalFitness;
+        this.dataID=dataID;
         double temp;
         for(int i = 0; i < numItems; i++)
         {
@@ -38,6 +41,15 @@ public class TestData {
         }
         this.offset *= .3;
     }
+
+    public int getDataID() {
+        return dataID;
+    }
+
+    public void setDataID(int dataID) {
+        this.dataID = dataID;
+    }
+
     public ArrayList<Integer> getWeight() {
         return weight;
     }

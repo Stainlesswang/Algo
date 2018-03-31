@@ -21,7 +21,6 @@ import edu.tjut.algo.fragment.HomeFragment;
 import edu.tjut.algo.date.TestData;
 public class MainActivity extends AppCompatActivity implements DashboardFragment.OnFragmentInteractionListener,EditFragment.OnFragmentInteractionListener
         ,HomeFragment.OnFragmentInteractionListener{
-    private TextView mTextMessage;
     private FrameLayout fl;
     private Fragment[] fragments;
     private int lastShowFragment = 0;
@@ -63,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements DashboardFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fl = (FrameLayout) findViewById(R.id.content);
-//        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         initFragments();

@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
+import edu.tjut.algo.date.ResultData;
 import edu.tjut.algo.date.TestData;
 
 public class SimulatedAnnealing
@@ -32,8 +33,11 @@ public class SimulatedAnnealing
     private ArrayList<Integer> sizes = new ArrayList<Integer>();//物品体积的数组
     private double penalty = 0;
     private double offset = 0;
+    private int dataId=0;
 
 
+
+    //构造函数将测试数据注入进来，系数暂时设为不可改变
     public SimulatedAnnealing(TestData testData){
         this.capacity=testData.getCapacity();
         this.numItems=testData.getNumItems();
@@ -41,21 +45,20 @@ public class SimulatedAnnealing
         this.optimalFitness=testData.getOptimalFitness();
         this.optimal=testData.getOptimal();
         this.values=testData.getValues();
-        this.sizes=testData.getWeight();
+        this.sizes=testData.getWeight();this.dataId=testData.getDataID();
     }
     public SimulatedAnnealing(){}
-    public  void  make()
+    public ResultData make()
     {
-        System.out.println(" item # |  value |   size |");
-        for(int i = 0; i < numItems; i++)
-            System.out.printf("%7d |%7d |%7d |\n",i,values.get(i),sizes.get(i));
-        System.out.println("Capacity: " + capacity);
-        System.out.println("Number of Items: " + numItems);
-        System.out.println("Total Value: " + totalValue);
-        System.out.println();
-
-
+//        System.out.println(" item # |  value |   size |");
+//        for(int i = 0; i < numItems; i++)
+//            System.out.printf("%7d |%7d |%7d |\n",i,values.get(i),sizes.get(i));
+//        System.out.println("Capacity: " + capacity);
+//        System.out.println("Number of Items: " + numItems);
+//        System.out.println("Total Value: " + totalValue);
+//        System.out.println();
         //bit strings as a boolean array
+        ResultData resultData=new ResultData();
         boolean[] sol = new boolean[numItems];
         for(int i = 0; i < numItems; i++)
         {
@@ -71,6 +74,10 @@ public class SimulatedAnnealing
 
         //-----------------------------------------------------------------------------------------
         // Step 3: Perform Simulated Annealing
+        //记录当前执行开始时间
+        long startTime=System.currentTimeMillis();
+
+
         while(tempVal > tempThreshold)
         {
             //开始迭代
@@ -109,25 +116,22 @@ public class SimulatedAnnealing
             }
             tempVal *= aValue;//降温
             numIter *= bValue;//更新迭代的次数
-            System.out.println("当前迭代的次数："+numIter);
             //Print user information.
             System.out.println("Current Temperature: "+tempVal);
-
                 double percent = (solFitness/optimalFitness)*100;
                 System.out.println("solFitness::"+solFitness+"optimalFitness::"+optimalFitness+"percent:"+percent);
                 System.out.printf("Current Fitness: %,.2f%% of known optimal.\n" , percent);
-
         }
+        //跳出while循环 记录结束时间，然后计算出总共执行时间
+        long endTime=System.currentTimeMillis();
+        float excTime=(float)(endTime-startTime)/1000;
+        System.out.println("执行时间："+excTime+"s");
 
         //-----------------------------------------------------------------------------------------
         // Step 4: Print Results
         String solStr = "";
         int solSize = 0;
         int solValue = 0;
-        String optStr = "";
-        int optSize = 0;
-        int optValue = 0;
-        boolean sameAsOptimal = true;
         for(int i = 0; i < numItems; i++)
         {
             if(bestSol[i] == true)
@@ -138,39 +142,19 @@ public class SimulatedAnnealing
             }
             else
                 solStr += "0";
-
-                if(optimal[i] == true)
-                {
-                    optStr += "1";
-                    optSize += sizes.get(i);
-                    optValue += values.get(i);
-                }
-                else
-                    optStr += "0";
-                if(bestSol[i] != optimal[i])
-                    sameAsOptimal = false;
-
         }
 
-
-        System.out.println("\nOptimal Solution: " + optStr);
-        System.out.println("Optimal Fitness: " + optimalFitness);
-        System.out.println("Optimal Size out of Capacity: " + optSize + "/" + capacity);
-        System.out.println("Optimal Value: " + optValue );
-
         System.out.println("\nFinal Solution: " + solStr);
+        resultData.setBestStr(solStr);
         System.out.println("bestFitness: " + fitness(bestSol));
         System.out.println("solFitness: " + fitness(sol));
-
             double percent = (bestFitness/optimalFitness)*100;
             System.out.printf(" (%,.2f%% of optimal)\n" , percent);
-
-            if(sameAsOptimal)
-                System.out.println("==Found the optimal!==" );
-
+        resultData.setPercent(percent);
         System.out.println("Size out of Capacity: " + solSize + "/" + capacity);
         System.out.println("Value: " + solValue );
         System.out.println("Number of perturbations to find: " + pOfBest);
+        return resultData;
     }
 
 

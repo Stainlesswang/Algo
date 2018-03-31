@@ -58,6 +58,6 @@ public class AlgoUtil {
          optimalFitness =new SimulatedAnnealing().fitness(optimal);
             sScanner.close();
         //将获取到的参数注入到TestData 对象中方便使用
-        return new TestData(sizes,values,capacity,numItems,totalValue,optimal,optimalFitness);
+        return new TestData(sizes,values,capacity,numItems,totalValue,optimal,optimalFitness,textEnum.id);
     }
 }

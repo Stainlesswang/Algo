@@ -11,8 +11,48 @@ package edu.tjut.algo.date;
  * 然后想想办法怎么显示在图表中
  */
 public class ResultData {
-    private String dataId;//测试数据编号
+    private int dataId;//测试数据编号
     private String bestStr;//对应的最优解字符串
     private float time;//耗费的时间  毫秒级别
     private int method;//0,遗传     1-模拟退火     2-爬山法
+    private double percent;//匹配度  单位 %
+    public double getPercent() {
+        return percent;
+    }
+
+    public void setPercent(double percent) {
+        this.percent = percent;
+    }
+
+    public int getDataId() {
+        return dataId;
+    }
+
+    public void setDataId(int dataId) {
+        this.dataId = dataId;
+    }
+
+    public String getBestStr() {
+        return bestStr;
+    }
+
+    public void setBestStr(String bestStr) {
+        this.bestStr = bestStr;
+    }
+
+    public float getTime() {
+        return time;
+    }
+
+    public void setTime(float time) {
+        this.time = time;
+    }
+
+    public int getMethod() {
+        return method;
+    }
+
+    public void setMethod(int method) {
+        this.method = method;
+    }
 }
