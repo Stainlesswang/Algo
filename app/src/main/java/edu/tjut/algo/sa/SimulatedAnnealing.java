@@ -36,7 +36,19 @@ public class SimulatedAnnealing
     private int dataId=0;
 
 
-
+    //当foolish为true的时候选择 爬山算法！
+    public SimulatedAnnealing(TestData testData,boolean foolish){
+        if(foolish){
+            this.foolish=foolish;
+        }
+        this.capacity=testData.getCapacity();
+        this.numItems=testData.getNumItems();
+        this.totalValue=testData.getTotalValue();
+        this.optimalFitness=testData.getOptimalFitness();
+        this.optimal=testData.getOptimal();
+        this.values=testData.getValues();
+        this.sizes=testData.getWeight();this.dataId=testData.getDataID();
+    }
     //构造函数将测试数据注入进来，系数暂时设为不可改变
     public SimulatedAnnealing(TestData testData){
         this.capacity=testData.getCapacity();
