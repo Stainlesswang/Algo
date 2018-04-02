@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import edu.tjut.algo.sa.SimulatedAnnealing;
-import edu.tjut.algo.date.TestData;
+import edu.tjut.algo.data.TestData;
 
 /**
  * Created by Administrator on 2018/3/26.

@@ -6,8 +6,8 @@ import java.util.Random;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
-import edu.tjut.algo.date.ResultData;
-import edu.tjut.algo.date.TestData;
+import edu.tjut.algo.data.ResultData;
+import edu.tjut.algo.data.TestData;
 
 public class SimulatedAnnealing
 {
@@ -128,6 +128,7 @@ public class SimulatedAnnealing
             }
             tempVal *= aValue;//降温
             numIter *= bValue;//更新迭代的次数
+            //要不要降温的过程呢？  待定吧，只能使用于模拟退火算法
             //Print user information.
             System.out.println("Current Temperature: "+tempVal);
                 double percent = (solFitness/optimalFitness)*100;
