@@ -30,4 +30,5 @@ dependencies {
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
     testCompile 'junit:junit:4.12'
+    compile 'org.litepal.android:core:1.6.1'
 }

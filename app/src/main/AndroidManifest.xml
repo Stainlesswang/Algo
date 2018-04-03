@@ -21,6 +21,9 @@
         <activity android:name=".activity.ChartActivity">
 
         </activity>
-    </application>
 
+    </application>
+    <application>
+        android:name="org.litepal.LitePalApplication"
+    </application>
 </manifest>
