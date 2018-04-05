@@ -8,7 +8,6 @@ import java.util.TreeSet;
 
 import edu.tjut.algo.data.ResultData;
 import edu.tjut.algo.data.TestData;
-
 public class SimulatedAnnealing
 {
 

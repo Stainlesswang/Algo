@@ -1,5 +1,6 @@
 package edu.tjut.algo.activity;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +12,12 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import org.litepal.LitePal;
+import org.litepal.crud.DataSupport;
+
+import java.util.List;
+
+import edu.tjut.algo.data.ResultData;
 import edu.tjut.algo.util.AlgoUtil;
 import edu.tjut.algo.R;
 import edu.tjut.algo.util.TextEnum;
@@ -55,8 +62,29 @@ public class MainActivity extends AppCompatActivity implements DashboardFragment
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        TestData testData=AlgoUtil.getDataFromTxt(getApplicationContext(), TextEnum.TXT_P02);
-        Toast.makeText(getApplicationContext(),testData.toString(),
+        SQLiteDatabase db = LitePal.getDatabase();
+        ResultData resultData=new ResultData();
+        resultData.setBestStr("0100203");
+        resultData.setMethod(1);
+        resultData.setTime(8888);
+        resultData.setDataId(2);
+        ResultData resultData1=new ResultData();
+        resultData1.setBestStr("0100203");
+        resultData1.setMethod(2);
+        resultData1.setTime(66);
+        resultData1.setDataId(5);
+        resultData1.save();
+        boolean ok=resultData.save();
+        if (ok){
+            Toast.makeText(getApplicationContext(),"Version is :"+resultData.toString(),
+                    Toast.LENGTH_SHORT).show();
+        }
+        List<ResultData> resultDatas= DataSupport.findAll(ResultData.class);
+        int b= resultDatas.size();
+
+        int a= resultDatas.get(1).getId();
+//        TestData testData=AlgoUtil.getDataFromTxt(getApplicationContext(), TextEnum.TXT_P02);
+        Toast.makeText(getApplicationContext(),"tag is :"+a+"  Size: "+b,
                 Toast.LENGTH_SHORT).show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
