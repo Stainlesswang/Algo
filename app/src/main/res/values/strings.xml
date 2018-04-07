@@ -1,10 +1,20 @@
 <resources>
     <string name="app_name">Algo</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">模拟退火</string>
+    <string name="title_dashboard">爬山算法</string>
+    <string name="title_notifications">遗传算法</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hello_edit_fragment">Hello edit fragment</string>
+    <string-array name="testdata">
+        <item>测试数据1</item>
+        <item>测试数据2</item>
+        <item>测试数据3</item>
+        <item>测试数据4</item>
+        <item>测试数据5</item>
+        <item>测试数据6</item>
+        <item>测试数据7</item>
+        <item>测试数据8</item>
+    </string-array>
 </resources>

@@ -62,30 +62,10 @@ public class MainActivity extends AppCompatActivity implements DashboardFragment
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SQLiteDatabase db = LitePal.getDatabase();
-        ResultData resultData=new ResultData();
-        resultData.setBestStr("0100203");
-        resultData.setMethod(1);
-        resultData.setTime(8888);
-        resultData.setDataId(2);
-        ResultData resultData1=new ResultData();
-        resultData1.setBestStr("0100203");
-        resultData1.setMethod(2);
-        resultData1.setTime(66);
-        resultData1.setDataId(5);
-        resultData1.save();
-        boolean ok=resultData.save();
-        if (ok){
-            Toast.makeText(getApplicationContext(),"Version is :"+resultData.toString(),
-                    Toast.LENGTH_SHORT).show();
-        }
-        List<ResultData> resultDatas= DataSupport.findAll(ResultData.class);
-        int b= resultDatas.size();
+//        SQLiteDatabase db = LitePal.getDatabase();
 
-        int a= resultDatas.get(1).getId();
-//        TestData testData=AlgoUtil.getDataFromTxt(getApplicationContext(), TextEnum.TXT_P02);
-        Toast.makeText(getApplicationContext(),"tag is :"+a+"  Size: "+b,
-                Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(),"tag is :"+a+"  Size: "+b,
+//                Toast.LENGTH_SHORT).show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fl = (FrameLayout) findViewById(R.id.content);

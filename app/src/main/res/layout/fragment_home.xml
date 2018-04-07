@@ -1,18 +1,29 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="edu.tjut.algo.fragment.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textColor="@color/colorAccent"
-        android:text="@string/title_home" />
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/chart"
+        android:id="@+id/textView"
+        android:layout_width="122dp"
+        android:layout_height="36dp"
+        android:layout_column="1"
+        android:layout_row="0"
+        android:text="请选择测试数据"
+        android:textColorLink="@color/colorPrimaryDark" />
+
+    <Spinner
+        android:id="@+id/testdata"
+        android:layout_width="139dp"
+        android:layout_height="50dp"
+        android:layout_column="7"
+        android:layout_row="0"
+        android:entries="@array/testdata" />
+
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-</FrameLayout>
+</LinearLayout>

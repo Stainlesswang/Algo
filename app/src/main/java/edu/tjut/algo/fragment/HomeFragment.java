@@ -79,15 +79,15 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
       View view=  inflater.inflate(R.layout.fragment_home, container, false);
 
-        LineChart chart= (LineChart) view.findViewById(R.id.chart);
-        List<Entry> entries=new ArrayList<Entry>();
-        entries.add(0,new Entry(3f,2));
-        entries.add(1,new Entry(5.0f,3));
-        entries.add(2,new Entry(8.0f,4));
-        LineDataSet dataSet=new LineDataSet(entries,"labe1");
-        LineData lineData=new LineData(dataSet);
-        chart.setData(lineData);
-        chart.invalidate();
+//        LineChart chart= (LineChart) view.findViewById(R.id.chart);
+//        List<Entry> entries=new ArrayList<Entry>();
+//        entries.add(0,new Entry(3f,2));
+//        entries.add(1,new Entry(5.0f,3));
+//        entries.add(2,new Entry(8.0f,4));
+//        LineDataSet dataSet=new LineDataSet(entries,"labe1");
+//        LineData lineData=new LineData(dataSet);
+//        chart.setData(lineData);
+//        chart.invalidate();
         return view;
 
     }
