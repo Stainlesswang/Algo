@@ -11,6 +11,8 @@ public class TestData {
     private ArrayList<Integer> weight=new ArrayList<>();
     //全部价值的list集合
     private ArrayList<Integer> values=new ArrayList<>();
+    //所包含的物品
+    private ArrayList<Item> items=new ArrayList<>();
     private int capacity;//背包容量
     private boolean[] optimal;//最优解的bool数组
     private double optimalFitness;//已知最优解的总价值
@@ -34,6 +36,11 @@ public class TestData {
         double temp;
         for(int i = 0; i < numItems; i++)
         {
+            Item item=new Item();
+            item.setWeight(weight.get(i));
+            item.setValue(values.get(i));
+            item.setDataID(dataID);
+            items.add(item);
             this.offset += values.get(i);
             temp = (values.get(i))/weight.get(i);
             if( temp > penalty )
@@ -104,6 +111,14 @@ public class TestData {
 
     public void setOptimalFitness(double optimalFitness) {
         this.optimalFitness = optimalFitness;
+    }
+
+    public ArrayList<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(ArrayList<Item> items) {
+        this.items = items;
     }
 
     @Override

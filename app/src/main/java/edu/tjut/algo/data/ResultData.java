@@ -18,7 +18,16 @@ public class ResultData extends DataSupport {
     private float time;//耗费的时间  毫秒级别
     private int method;//0,遗传     1-模拟退火     2-爬山法
     private double percent;//匹配度  单位 %
+    public ResultData(int dataId,String bestStr,float time,int method,double percent){
+        this.dataId=dataId;
+        this.bestStr=bestStr;
+        this.time=time;
+        this.method=method;
+        this.percent=percent;
+    }
+    public ResultData(){
 
+    }
     public int getId() {
         return id;
     }

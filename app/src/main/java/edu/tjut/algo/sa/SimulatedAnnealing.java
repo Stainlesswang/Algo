@@ -155,17 +155,19 @@ public class SimulatedAnnealing
             else
                 solStr += "0";
         }
-
-        System.out.println("\nFinal Solution: " + solStr);
         resultData.setBestStr(solStr);
-        System.out.println("bestFitness: " + fitness(bestSol));
-        System.out.println("solFitness: " + fitness(sol));
-            double percent = (bestFitness/optimalFitness)*100;
-            System.out.printf(" (%,.2f%% of optimal)\n" , percent);
+        double percent = (bestFitness/optimalFitness)*100;
         resultData.setPercent(percent);
         System.out.println("Size out of Capacity: " + solSize + "/" + capacity);
         System.out.println("Value: " + solValue );
         System.out.println("Number of perturbations to find: " + pOfBest);
+        resultData.setDataId(dataId);
+        if (foolish){
+            resultData.setMethod(2);
+        }else {
+            resultData.setMethod(1);
+        }
+        resultData.setTime(excTime);
         return resultData;
     }
 
