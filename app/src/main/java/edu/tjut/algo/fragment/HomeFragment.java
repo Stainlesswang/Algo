@@ -7,6 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
@@ -18,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.tjut.algo.R;
+import edu.tjut.algo.util.TextEnum;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +43,10 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Spinner sp_selectData=null;
+    private Button  btn_do=null;
+    private ListView listView_data=null;
+    private ListView listView_result=null;
 
     private OnFragmentInteractionListener mListener;
 
@@ -75,22 +86,51 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view=  inflater.inflate(R.layout.fragment_home, container, false);
+        init(view);
+//        Toast.makeText(getActivity(),"当前点击了:"+position,Toast.LENGTH_LONG).show();
+        sp_selectData.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getContext(),"当前点击了:"+position+"id:"+id,Toast.LENGTH_LONG).show();
 
-        // Inflate the layout for this fragment
-      View view=  inflater.inflate(R.layout.fragment_home, container, false);
+//                switch (position){
+//                    case 0:
+//                        Toast.makeText(getContext(),"当前点击了:"+position,Toast.LENGTH_LONG).show();
+//                    case 1:
+//                        Toast.makeText(getContext(),"select position is:"+position,Toast.LENGTH_LONG).show();
+//                }
+            }
 
-//        LineChart chart= (LineChart) view.findViewById(R.id.chart);
-//        List<Entry> entries=new ArrayList<Entry>();
-//        entries.add(0,new Entry(3f,2));
-//        entries.add(1,new Entry(5.0f,3));
-//        entries.add(2,new Entry(8.0f,4));
-//        LineDataSet dataSet=new LineDataSet(entries,"labe1");
-//        LineData lineData=new LineData(dataSet);
-//        chart.setData(lineData);
-//        chart.invalidate();
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         return view;
 
     }
+
+    private void  init(View view){
+        sp_selectData= (Spinner) view.findViewById(R.id.sp_selectData);
+        btn_do= (Button) view.findViewById(R.id.btn_do);
+        listView_data= (ListView) view.findViewById(R.id.list_data);
+        listView_result= (ListView) view.findViewById(R.id.list_result);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
