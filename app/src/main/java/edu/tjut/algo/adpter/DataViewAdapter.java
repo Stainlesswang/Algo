@@ -14,10 +14,10 @@ import edu.tjut.algo.data.TestData;
  * Created by Administrator on 2018/4/8.
  */
 
-public class DataViewAdpter extends BaseAdapter {
+public class DataViewAdapter extends BaseAdapter {
     private TestData testData;
     private  Item item;
-    public DataViewAdpter(TestData testData){
+    public DataViewAdapter(TestData testData){
         this.testData=testData;
     }
     @Override

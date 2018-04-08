@@ -13,11 +13,15 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import org.litepal.crud.DataSupport;
+
+import java.util.ArrayList;
+
 import edu.tjut.algo.R;
-import edu.tjut.algo.adpter.DataViewAdpter;
+import edu.tjut.algo.adpter.DataViewAdapter;
+import edu.tjut.algo.adpter.ResultViewAdapter;
 import edu.tjut.algo.data.ResultData;
 import edu.tjut.algo.data.TestData;
 import edu.tjut.algo.sa.SimulatedAnnealing;
@@ -120,8 +124,8 @@ public class HomeFragment extends Fragment {
                         testData=AlgoUtil.getDataFromTxt(getContext(),TextEnum.TXT_P08);
                         break;
                 }
-                DataViewAdpter dataViewAdpter=new DataViewAdpter(testData);
-                listView_data.setAdapter(dataViewAdpter);
+                DataViewAdapter dataViewAdapter =new DataViewAdapter(testData);
+                listView_data.setAdapter(dataViewAdapter);
 
             }
 
@@ -133,10 +137,13 @@ public class HomeFragment extends Fragment {
         handler=new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(Message msg) {
-               Bundle bundle=msg.getData();
+                Bundle bundle=msg.getData();
                 ResultData resultData=new ResultData(bundle.getInt("dataId"),bundle.getString("bestStr"),bundle.getFloat("time"),
                         bundle.getInt("method"),bundle.getDouble("percent"));
                 if(resultData.save()){
+                    ArrayList<ResultData> resultDatas= (ArrayList<ResultData>) DataSupport.findAll(ResultData.class);
+                    ResultViewAdapter resultViewAdapter=new ResultViewAdapter(resultDatas);
+                    listView_result.setAdapter(resultViewAdapter);
                     Toast.makeText(getActivity(),"数据保存成功了！",Toast.LENGTH_LONG).show();
                 }
                 return false;
@@ -178,6 +185,7 @@ public class HomeFragment extends Fragment {
         listView_data= (ListView) view.findViewById(R.id.list_data);
         listView_result= (ListView) view.findViewById(R.id.list_result);
     }
+
 
 
 
