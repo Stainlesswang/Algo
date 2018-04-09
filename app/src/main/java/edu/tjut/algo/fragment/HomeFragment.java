@@ -1,8 +1,10 @@
 package edu.tjut.algo.fragment;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -51,6 +53,7 @@ public class HomeFragment extends Fragment {
     private ListView listView_result=null;
     private Handler handler;
     private TestData testData;
+    private ProgressDialog pd;
 
 
     private OnFragmentInteractionListener mListener;
@@ -93,12 +96,12 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view=  inflater.inflate(R.layout.fragment_home, container, false);
         init(view);
-//        Toast.makeText(getActivity(),"当前点击了:"+position,Toast.LENGTH_LONG).show();
+        refreshResultListView();
         sp_selectData.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //默认测试数据时第一组数据
-                 testData=AlgoUtil.getDataFromTxt(getContext(),TextEnum.TXT_P01);
+                testData=AlgoUtil.getDataFromTxt(getContext(),TextEnum.TXT_P01);
                 testData=getTxtData(position);
                 DataViewAdapter dataViewAdapter =new DataViewAdapter(testData);
                 listView_data.setAdapter(dataViewAdapter);
@@ -113,6 +116,7 @@ public class HomeFragment extends Fragment {
         handler=new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(Message msg) {
+                pd.dismiss();// 关闭ProgressDialog
                 Bundle bundle=msg.getData();
                 ResultData resultData=new ResultData(bundle.getInt("dataId"),bundle.getString("bestStr"),bundle.getFloat("time"),
                         bundle.getInt("method"),bundle.getDouble("percent"));
@@ -145,6 +149,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //点击运行，开启新的线程，并将结果返回到当前界面显示出来 并且存储到数据库中
+                pd = ProgressDialog.show(getContext(), "算法进行中", "正在努力计算，请稍后……");
                 Thread thread=new Thread(mRunnable);
                 thread.start();
             }
@@ -194,6 +199,7 @@ public class HomeFragment extends Fragment {
         btn_do= (Button) view.findViewById(R.id.btn_do);
         listView_data= (ListView) view.findViewById(R.id.list_data);
         listView_result= (ListView) view.findViewById(R.id.list_result);
+
     }
 
 

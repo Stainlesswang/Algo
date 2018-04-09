@@ -42,15 +42,14 @@ public class DataViewAdapter extends BaseAdapter {
         TextView txt_id= (TextView) view.findViewById(R.id.data_id);
         TextView txt_weight= (TextView) view.findViewById(R.id.data_weight);
         TextView txt_value= (TextView) view.findViewById(R.id.data_value);
-        if (position==0){
-            txt_id.setText("当前数据为:"+"第"+testData.getItems().get(position).getDataID()+"组");
-            txt_weight.setText("物品数量："+testData.getNumItems());
-            txt_value.setText("背包容量："+testData.getCapacity());
-        }else {
-            txt_id.setText("编号："+(position));
+//            txt_id.setText("当前数据为:"+"第"+testData.getItems().get(position).getDataID()+"组");
+//            txt_weight.setText("物品数量："+testData.getNumItems());
+//            txt_value.setText("背包容量："+testData.getCapacity());
+
+            txt_id.setText("编号："+(position+1));
             txt_weight.setText("重量："+testData.getItems().get(position).getWeight());
             txt_value.setText("价值："+testData.getItems().get(position).getValue());
-        }
+
         return view;
     }
 }
