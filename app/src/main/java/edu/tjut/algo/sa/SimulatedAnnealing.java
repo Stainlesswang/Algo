@@ -15,7 +15,7 @@ public class SimulatedAnnealing
     public static double tempVal = 60;//初始化温度 (40-60)
     public static double aValue = 0.95;//每次降温到原来温度的0.95倍  (.95-.99)
     public static double tempThreshold = 3;//温度的阀值，到达该温度停止  原计算方式 tempThreshold *= tempVal;取值范围(.01-.05)
-    public static int numIter = 70;//迭代的次数 (1000-5000)
+    public static int numIter = 100;//迭代的次数 (1000-5000)
     public static double bValue = 1.05;//每次迭代后扩大为原来的1.05倍 (1.01-1.05)
     public static int perturbSel = 1;//选择 N-Point 还是 N-Slice   改变方式 (0 = N-Point Perturbation, 1 = N-Slice Inversion)
     public static int nValue = 3;//反转的位数是几个  (1-3)
@@ -40,6 +40,9 @@ public class SimulatedAnnealing
         if(foolish){
             this.foolish=foolish;
         }
+        if (tempVal<=tempThreshold){
+            tempVal=60;
+        }
         this.capacity=testData.getCapacity();
         this.numItems=testData.getNumItems();
         this.totalValue=testData.getTotalValue();
@@ -51,12 +54,16 @@ public class SimulatedAnnealing
     }
     //构造函数将测试数据注入进来，系数暂时设为不可改变
     public SimulatedAnnealing(TestData testData){
+        if (tempVal<=tempThreshold){
+            tempVal=60;
+        }
         this.capacity=testData.getCapacity();
         this.numItems=testData.getNumItems();
         this.totalValue=testData.getTotalValue();
         this.optimal=testData.getOptimal();
         this.values=testData.getValues();
-        this.sizes=testData.getWeight();this.dataId=testData.getDataID();
+        this.sizes=testData.getWeight();
+        this.dataId=testData.getDataID();
         this.optimalFitness=testData.getOptimalFitness();
         this.penalty=testData.getPenalty();
         this.offset=testData.getOffset();
@@ -164,6 +171,7 @@ public class SimulatedAnnealing
         System.out.println("Size out of Capacity: " + solSize + "/" + capacity);
         System.out.println("Value: " + solValue );
         System.out.println("Number of perturbations to find: " + pOfBest);
+        System.out.println("when the code id finish the tempval: "+tempVal);
         resultData.setDataId(dataId);
         if (foolish){
             resultData.setMethod(2);
@@ -171,6 +179,16 @@ public class SimulatedAnnealing
             resultData.setMethod(1);
         }
         resultData.setTime(excTime);
+
+        //充值参数哇兄弟
+        foolish = false;//true选择效率较慢的爬山算法,false模拟退火算法 (false = Simulated Annealing, true = Foolish Hill-climber)
+          tempVal = 60;//初始化温度 (40-60)
+          aValue = 0.95;//每次降温到原来温度的0.95倍  (.95-.99)
+         tempThreshold = 3;//温度的阀值，到达该温度停止  原计算方式 tempThreshold *= tempVal;取值范围(.01-.05)
+         numIter = 100;//迭代的次数 (1000-5000)
+         bValue = 1.05;//每次迭代后扩大为原来的1.05倍 (1.01-1.05)
+         perturbSel = 1;//选择 N-Point 还是 N-Slice   改变方式 (0 = N-Point Perturbation, 1 = N-Slice Inversion)
+         nValue = 3;//反转的位数是几个  (1-3)
         return resultData;
     }
 

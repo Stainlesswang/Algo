@@ -126,7 +126,6 @@ public class HomeFragment extends Fragment {
         final Runnable  mRunnable = new Runnable() {
             @Override
             public void run() {
-
                     TestData data=getTxtData(sp_selectData.getSelectedItemPosition());
                     SimulatedAnnealing simulatedAnnealing=new SimulatedAnnealing(data);
                     ResultData resultData=simulatedAnnealing.make();
