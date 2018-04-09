@@ -1,5 +1,4 @@
 package edu.tjut.algo.fragment;
-
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +13,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import junit.framework.Test;
 
 import org.litepal.crud.DataSupport;
 
@@ -98,32 +99,7 @@ public class HomeFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //默认测试数据时第一组数据
                  testData=AlgoUtil.getDataFromTxt(getContext(),TextEnum.TXT_P01);
-                switch (position){
-                    case 0:
-                        testData=AlgoUtil.getDataFromTxt(getContext(),TextEnum.TXT_P01);
-                        break;
-                    case 1:
-                        testData=AlgoUtil.getDataFromTxt(getContext(),TextEnum.TXT_P02);
-                        break;
-                    case 2:
-                        testData=AlgoUtil.getDataFromTxt(getContext(),TextEnum.TXT_P03);
-                        break;
-                    case 3:
-                        testData=AlgoUtil.getDataFromTxt(getContext(),TextEnum.TXT_P04);
-                        break;
-                    case 4:
-                        testData=AlgoUtil.getDataFromTxt(getContext(),TextEnum.TXT_P05);
-                        break;
-                    case 5:
-                        testData=AlgoUtil.getDataFromTxt(getContext(),TextEnum.TXT_P06);
-                        break;
-                    case 6:
-                        testData=AlgoUtil.getDataFromTxt(getContext(),TextEnum.TXT_P07);
-                        break;
-                    case 7:
-                        testData=AlgoUtil.getDataFromTxt(getContext(),TextEnum.TXT_P08);
-                        break;
-                }
+                testData=getTxtData(position);
                 DataViewAdapter dataViewAdapter =new DataViewAdapter(testData);
                 listView_data.setAdapter(dataViewAdapter);
 
@@ -141,10 +117,8 @@ public class HomeFragment extends Fragment {
                 ResultData resultData=new ResultData(bundle.getInt("dataId"),bundle.getString("bestStr"),bundle.getFloat("time"),
                         bundle.getInt("method"),bundle.getDouble("percent"));
                 if(resultData.save()){
-                    ArrayList<ResultData> resultDatas= (ArrayList<ResultData>) DataSupport.findAll(ResultData.class);
-                    ResultViewAdapter resultViewAdapter=new ResultViewAdapter(resultDatas);
-                    listView_result.setAdapter(resultViewAdapter);
-                    Toast.makeText(getActivity(),"数据保存成功了！",Toast.LENGTH_LONG).show();
+                    refreshResultListView();
+                    Toast.makeText(getActivity(),"数据保存成功了！"+resultData.toString(),Toast.LENGTH_LONG).show();
                 }
                 return false;
             }
@@ -153,7 +127,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void run() {
 
-                    SimulatedAnnealing simulatedAnnealing=new SimulatedAnnealing(testData);
+                    TestData data=getTxtData(sp_selectData.getSelectedItemPosition());
+                    SimulatedAnnealing simulatedAnnealing=new SimulatedAnnealing(data);
                     ResultData resultData=simulatedAnnealing.make();
                     Bundle bundle=new Bundle();
                     bundle.putInt("dataId",resultData.getDataId());
@@ -179,6 +154,42 @@ public class HomeFragment extends Fragment {
 
     }
 
+    private TestData getTxtData(int position){
+        System.out.println("==========================______"+position);
+        TestData testData1 = null;
+        switch (position){
+            case 0:
+                testData1=AlgoUtil.getDataFromTxt(getContext(),TextEnum.TXT_P01);
+                return testData1;
+            case 1:
+                testData1=AlgoUtil.getDataFromTxt(getContext(),TextEnum.TXT_P02);
+                return testData1;
+            case 2:
+                testData1=AlgoUtil.getDataFromTxt(getContext(),TextEnum.TXT_P03);
+                return testData1;
+            case 3:
+                testData1=AlgoUtil.getDataFromTxt(getContext(),TextEnum.TXT_P04);
+                return testData1;
+            case 4:
+                testData1=AlgoUtil.getDataFromTxt(getContext(),TextEnum.TXT_P05);
+                return testData1;
+            case 5:
+                testData1=AlgoUtil.getDataFromTxt(getContext(),TextEnum.TXT_P06);
+                return testData1;
+            case 6:
+                testData1=AlgoUtil.getDataFromTxt(getContext(),TextEnum.TXT_P07);
+                return testData1;
+            case 7:
+                testData1=AlgoUtil.getDataFromTxt(getContext(),TextEnum.TXT_P08);
+                return testData1;
+        }
+        return null;
+    }
+    private void refreshResultListView(){
+        ArrayList<ResultData> resultDatas= (ArrayList<ResultData>) DataSupport.findAll(ResultData.class);
+        ResultViewAdapter resultViewAdapter=new ResultViewAdapter(resultDatas);
+        listView_result.setAdapter(resultViewAdapter);
+    }
     private void  init(View view){
         sp_selectData= (Spinner) view.findViewById(R.id.sp_selectData);
         btn_do= (Button) view.findViewById(R.id.btn_do);

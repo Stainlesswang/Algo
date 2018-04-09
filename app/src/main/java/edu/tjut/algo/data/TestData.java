@@ -1,7 +1,5 @@
 package edu.tjut.algo.data;
-
 import java.util.ArrayList;
-
 /**
  * Created by Administrator on 2018/3/25.
  * 封装测试物品的信息，方便使用和管理
@@ -24,7 +22,7 @@ public class TestData {
     int dataID=0;
 
     public TestData(ArrayList<Integer> weight, ArrayList<Integer> values, int capacity,
-                    int numItems,int totalValue,boolean[] optimal,double optimalFitness,int dataID){
+                    int numItems,int totalValue,boolean[] optimal,double optimalFitness,int dataID,double penalty,double offset){
         this.weight=weight;
         this.values=values;
         this.capacity=capacity;
@@ -33,7 +31,8 @@ public class TestData {
         this.optimal=optimal;
         this.optimalFitness=optimalFitness;
         this.dataID=dataID;
-        double temp;
+        this.penalty=penalty;
+        this.offset=offset;
         for(int i = 0; i < numItems; i++)
         {
             Item item=new Item();
@@ -41,12 +40,7 @@ public class TestData {
             item.setValue(values.get(i));
             item.setDataID(dataID);
             items.add(item);
-            this.offset += values.get(i);
-            temp = (values.get(i))/weight.get(i);
-            if( temp > penalty )
-                this.penalty = temp;
         }
-        this.offset *= .3;
     }
 
     public int getDataID() {
@@ -121,9 +115,26 @@ public class TestData {
         this.items = items;
     }
 
+    public double getPenalty() {
+        return penalty;
+    }
+
+    public void setPenalty(double penalty) {
+        this.penalty = penalty;
+    }
+
+    public double getOffset() {
+        return offset;
+    }
+
+    public void setOffset(double offset) {
+        this.offset = offset;
+    }
+
     @Override
     public String toString() {
         return " weight: "+weight.toString()+" values: "+values.toString()+"optimal: "+optimal.toString()
-                +" capacity: "+capacity+" totalValue: "+totalValue+" numItems: "+numItems+" optimalFitness: "+optimalFitness;
+                +" capacity: "+capacity+" totalValue: "+totalValue+" numItems: "+numItems+" optimalFitness: "+optimalFitness
+                +" penalty: "+penalty+" offset: "+offset;
     }
 }

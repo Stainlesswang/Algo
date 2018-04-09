@@ -43,20 +43,23 @@ public class SimulatedAnnealing
         this.capacity=testData.getCapacity();
         this.numItems=testData.getNumItems();
         this.totalValue=testData.getTotalValue();
-        this.optimalFitness=testData.getOptimalFitness();
         this.optimal=testData.getOptimal();
         this.values=testData.getValues();
         this.sizes=testData.getWeight();this.dataId=testData.getDataID();
+        this.optimalFitness=testData.getOptimalFitness();
+
     }
     //构造函数将测试数据注入进来，系数暂时设为不可改变
     public SimulatedAnnealing(TestData testData){
         this.capacity=testData.getCapacity();
         this.numItems=testData.getNumItems();
         this.totalValue=testData.getTotalValue();
-        this.optimalFitness=testData.getOptimalFitness();
         this.optimal=testData.getOptimal();
         this.values=testData.getValues();
         this.sizes=testData.getWeight();this.dataId=testData.getDataID();
+        this.optimalFitness=testData.getOptimalFitness();
+        this.penalty=testData.getPenalty();
+        this.offset=testData.getOffset();
     }
     public SimulatedAnnealing(){}
     public ResultData make()
@@ -192,6 +195,31 @@ public class SimulatedAnnealing
 
 /********************************* 以下是调用的各种方法 ***************************/
 
+    public  double fitness(boolean[] c,int numItems,ArrayList<Integer> values,ArrayList<Integer> sizes,
+                           int capacity ,double penalty,double offset)
+    {
+        this.sizes=sizes;
+        this.values=values;
+        this.numItems=numItems;
+        //Get the chromosome's value
+        int runningValue = getChromValue(c);//当前组合的总价值
+        int runningSize = getChromSize(c);//当前组合的总体积
+        System.out.println(runningSize+"___________________________________++++++++++++");
+
+        //判断当前体积是否大于背包容量
+        if( runningSize > capacity )
+        {
+            double returnMe = runningValue - ((runningSize - capacity) * penalty + offset);
+            if (returnMe < 0)
+                return 0;
+            else
+                return returnMe;
+
+
+        }
+        else
+            return runningValue;
+    }
     public  double fitness( boolean[] c )
     {
         //Get the chromosome's value
@@ -211,6 +239,7 @@ public class SimulatedAnnealing
         else
             return runningValue;
     }
+
 
     public  boolean[] perturbNPoint(boolean[] s, int n)
     {

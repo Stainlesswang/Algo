@@ -5,6 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import edu.tjut.algo.data.Item;
 import edu.tjut.algo.sa.SimulatedAnnealing;
 import edu.tjut.algo.data.TestData;
 
@@ -21,7 +22,10 @@ public class AlgoUtil {
          int capacity = 0;//背包容量
          boolean[] optimal;//用来保存最优解的boole数组
         int totalValue = 0;//所有物品总价值
+        int totalSize = 0;//所有物品总价值
         double optimalFitness;
+        double penalty = 0;
+        double offset=0;
         //获取背包的总容量
         Scanner cScanner = new Scanner(context.getResources().openRawResource(textEnum.c));
         capacity = cScanner.nextInt();
@@ -55,9 +59,24 @@ public class AlgoUtil {
                 else
                     optimal[i] = true;
             }
-         optimalFitness =new SimulatedAnnealing().fitness(optimal);
+
             sScanner.close();
         //将获取到的参数注入到TestData 对象中方便使用
-        return new TestData(sizes,values,capacity,numItems,totalValue,optimal,optimalFitness,textEnum.id);
+        double temp;
+        for(int i = 0; i < numItems; i++)
+        {
+            totalSize+=sizes.get(i);
+            offset += values.get(i);
+            temp = (values.get(i))/sizes.get(i);
+            if( temp > penalty )
+                penalty = temp;
+        }
+        offset *= .3;
+
+
+        optimalFitness =new SimulatedAnnealing().fitness(optimal,numItems,values,sizes,capacity,penalty,offset);
+//        System.out.println(new TestData(sizes,values,capacity,numItems,totalValue,optimal,optimalFitness,textEnum.id,penalty,offset).toString()+"___________________________________++++++++++++");
+
+        return new TestData(sizes,values,capacity,numItems,totalValue,optimal,optimalFitness,textEnum.id,penalty,offset);
     }
 }

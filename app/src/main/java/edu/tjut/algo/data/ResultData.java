@@ -75,4 +75,9 @@ public class ResultData extends DataSupport {
     public void setMethod(int method) {
         this.method = method;
     }
+    @Override
+    public String toString() {
+        return " id: "+id+" dataID: "+dataId+"bestStr: "+bestStr
+                +" Time: "+time+" Method: "+method+" percent: "+percent;
+    }
 }
