@@ -170,6 +170,7 @@ public class SimulatedAnnealing
         resultData.setPercent(percent);
         System.out.println("Size out of Capacity: " + solSize + "/" + capacity);
         System.out.println("Value: " + solValue );
+        resultData.setResultValue(solValue);
         System.out.println("Number of perturbations to find: " + pOfBest);
         System.out.println("when the code id finish the tempval: "+tempVal);
         resultData.setDataId(dataId);

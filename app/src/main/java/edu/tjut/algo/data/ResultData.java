@@ -15,19 +15,50 @@ public class ResultData extends DataSupport {
     private int id;
     private int dataId;//测试数据编号,根据编号来查找数据的所有属性
     private String bestStr;//对应的最优解字符串 解析字符串获取最优解
+
     private float time;//耗费的时间  毫秒级别
     private int method;//0,遗传     1-模拟退火     2-爬山法
     private double percent;//匹配度  单位 %
-    public ResultData(int dataId,String bestStr,float time,int method,double percent){
+    private String bianhao;
+    private int resultValue;
+    public ResultData(int dataId,String bestStr,float time,int method,double percent,int resultValue){
         this.dataId=dataId;
         this.bestStr=bestStr;
         this.time=time;
         this.method=method;
         this.percent=percent;
+        this.resultValue=resultValue;
+        if (!"".equals(bestStr)){
+            String temp="";
+            char[] a=bestStr.toCharArray();
+            for (int i=0;i<a.length;i++){
+                if ("1".equals(a[i])){
+                    temp+=i+1+";";
+                }
+            }
+            this.bianhao=temp;
+        }
     }
     public ResultData(){
 
     }
+
+    public int getResultValue() {
+        return resultValue;
+    }
+
+    public void setResultValue(int solValue) {
+        this.resultValue = resultValue;
+    }
+
+    public String getBianhao() {
+        return bianhao;
+    }
+
+    public void setBianhao(String bianhao) {
+        this.bianhao = bianhao;
+    }
+
     public int getId() {
         return id;
     }
