@@ -119,7 +119,8 @@ public class HomeFragment extends Fragment {
                 pd.dismiss();// 关闭ProgressDialog
                 Bundle bundle=msg.getData();
                 ResultData resultData=new ResultData(bundle.getInt("dataId"),bundle.getString("bestStr"),bundle.getFloat("time"),
-                        bundle.getInt("method"),bundle.getDouble("percent"));
+                        bundle.getInt("method"),bundle.getDouble("percent"),bundle.getInt("resultValue"),
+                        bundle.getInt("nowWeight"),bundle.getInt("capacity"));
                 if(resultData.save()){
                     refreshResultListView();
                     Toast.makeText(getActivity(),"数据保存成功了！"+resultData.toString(),Toast.LENGTH_LONG).show();
@@ -139,6 +140,9 @@ public class HomeFragment extends Fragment {
                     bundle.putFloat("time",resultData.getTime());
                     bundle.putInt("method",resultData.getMethod());
                     bundle.putDouble("percent",resultData.getPercent());
+                bundle.putInt("resultValue",resultData.getResultValue());
+                bundle.putInt("nowWeight",resultData.getNowWeight());
+                bundle.putInt("capacity",resultData.getCapacity());
                 Message message=new Message();
                 message.setData(bundle);
                 handler.sendMessage(message);

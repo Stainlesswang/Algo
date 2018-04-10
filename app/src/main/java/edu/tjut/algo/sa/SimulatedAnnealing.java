@@ -169,6 +169,8 @@ public class SimulatedAnnealing
         double percent = (bestFitness/optimalFitness)*100;
         resultData.setPercent(percent);
         System.out.println("Size out of Capacity: " + solSize + "/" + capacity);
+        resultData.setNowWeight(solSize);
+        resultData.setCapacity(capacity);
         System.out.println("Value: " + solValue );
         resultData.setResultValue(solValue);
         System.out.println("Number of perturbations to find: " + pOfBest);

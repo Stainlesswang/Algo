@@ -38,12 +38,20 @@ public class ResultViewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_resultdata,null);
-        TextView txt_bestStr= (TextView) view.findViewById(R.id.result_bestStr);
-        TextView txt_percent= (TextView) view.findViewById(R.id.result_percent);
-        TextView txt_time= (TextView) view.findViewById(R.id.result_time);
-        txt_bestStr.setText("最优解："+resultDatas.get(position).getBestStr());
-        txt_percent.setText("匹配度："+resultDatas.get(position).getPercent()+"%");
-        txt_time.setText("耗费时间："+resultDatas.get(position).getTime());
+        TextView id= (TextView) view.findViewById(R.id.testdata_ID);
+        TextView bianhao= (TextView) view.findViewById(R.id.testdata_bianhao);
+        TextView resultValue= (TextView) view.findViewById(R.id.testdata_resultValue);
+
+        TextView time= (TextView) view.findViewById(R.id.testdata_time);
+        TextView weight= (TextView) view.findViewById(R.id.testdata_weight);
+        TextView percent= (TextView) view.findViewById(R.id.testdata_percent);
+        id.setText(""+resultDatas.get(position).getDataId());
+        bianhao.setText(""+resultDatas.get(position).getBianhao());
+        resultValue.setText(""+resultDatas.get(position).getResultValue());
+
+        time.setText(""+resultDatas.get(position).getTime());
+        weight.setText(""+resultDatas.get(position).getNowWeight()+"/"+resultDatas.get(position).getCapacity());
+        percent.setText(""+resultDatas.get(position).getPercent()+"%");
         return view;
     }
 }
