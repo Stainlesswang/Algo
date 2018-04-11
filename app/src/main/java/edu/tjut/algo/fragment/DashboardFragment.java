@@ -8,6 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.tjut.algo.R;
 
 /**
@@ -65,7 +73,25 @@ public class DashboardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dashboard, container, false);
+
+        View view=inflater.inflate(R.layout.fragment_dashboard, container, false);
+        LineChart lineChart= (LineChart)view.findViewById(R.id.chart2);
+        List<Entry> entries=new ArrayList<Entry>();
+        entries.add(0,new Entry(3f,2));
+        entries.add(1,new Entry(5.0f,3));
+        entries.add(2,new Entry(8.0f,4));
+        entries.add(3,new Entry(4.0f,6));
+        entries.add(4,new Entry(5.4f,7));
+        entries.add(5,new Entry(7.0f,8));
+        entries.add(6,new Entry(9.0f,6));
+        entries.add(7,new Entry(10.0f,7));
+        entries.add(8,new Entry(8.5f,9));
+        entries.add(9,new Entry(9.0f,5));
+        LineDataSet dataSet=new LineDataSet(entries,"labe1");
+        LineData lineData=new LineData(dataSet);
+        lineChart.setData(lineData);
+        lineChart.invalidate();
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
