@@ -10,7 +10,6 @@ import edu.tjut.algo.data.ResultData;
 import edu.tjut.algo.data.TestData;
 public class SimulatedAnnealing
 {
-
     public static boolean foolish = false;//true选择效率较慢的爬山算法,false模拟退火算法 (false = Simulated Annealing, true = Foolish Hill-climber)
     public static double tempVal = 60;//初始化温度 (40-60)
     public static double aValue = 0.95;//每次降温到原来温度的0.95倍  (.95-.99)
@@ -71,13 +70,6 @@ public class SimulatedAnnealing
     public SimulatedAnnealing(){}
     public ResultData make()
     {
-//        System.out.println(" item # |  value |   size |");
-//        for(int i = 0; i < numItems; i++)
-//            System.out.printf("%7d |%7d |%7d |\n",i,values.get(i),sizes.get(i));
-//        System.out.println("Capacity: " + capacity);
-//        System.out.println("Number of Items: " + numItems);
-//        System.out.println("Total Value: " + totalValue);
-//        System.out.println();
         //bit strings as a boolean array
         ResultData resultData=new ResultData();
         boolean[] sol = new boolean[numItems];
@@ -166,7 +158,7 @@ public class SimulatedAnnealing
                 solStr += "0";
         }
         resultData.setBestStr(solStr);
-        double percent = (bestFitness/optimalFitness)*100;
+        double percent = (solValue/optimalFitness)*100;
         resultData.setPercent(percent);
         System.out.println("Size out of Capacity: " + solSize + "/" + capacity);
         resultData.setNowWeight(solSize);

@@ -68,7 +68,6 @@ public class DataViewAdapter extends BaseAdapter {
             txt_value.setText("价值："+testData.getItems().get(position).getValue());
         }
 
-
         return view;
     }
 }

@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import edu.tjut.algo.data.TestData;
+
 /**
  * Created by Administrator on 2018/3/18.
  * GA（遗传算法简称） 解决01 背包问题 遗传算法实体类，都放在ga包中
@@ -25,6 +27,7 @@ public class GAKnapsack {
     private float arate1; //变异率（某个个体发生变异的可能性）
     private float arate2; //对于确定发生变异的个体每位发生变异的可能性
     private File data = null; //物品重量和物品价值的数据文件
+    private TestData testData=null;
 
     private boolean[][] population = null; //上一代种群
     private float[] fitness = null; //种群的适应度
@@ -66,13 +69,39 @@ public class GAKnapsack {
         this.data = data;
         random = new Random(System.currentTimeMillis());
     }
+    /**
+     *
+     * @param scale ： 种群规模
+     * @param maxgen ： 最大代数
+     * @param irate ： 交叉率（所有的个体都需要相互交叉的，这里的交叉率指交叉时每位交叉发生交叉的可能性）
+     * @param arate1 ：变异率（某个个体发生变异的可能性）
+     * @param arate2 ：对于确定发生变异的个体每位发生变异的可能性
+     * @param testData : 物品重量和物品价值的数据文件
+     */
+    public GAKnapsack( int scale, int maxgen, float irate, float arate1, float arate2, TestData testData) {
 
+        this.scale = scale;
+        this.maxgen = maxgen;
+        this.irate = irate;
+        this.arate1 = arate1;
+        this.arate2 = arate2;
+        this.capacity = testData.getCapacity();
+        this.testData = testData;
+        random = new Random(System.currentTimeMillis());
+    }
     //读取物品重量和物品价值数据
     private void readDate() {
-        List<Object> tmp = Reader.read(data);
-        weight = (float[])tmp.get(0);
-        profit = (float[])tmp.get(1);
-        len = weight.length;
+//        List<Object> tmp = Reader.read(data);
+//        weight = (float[])tmp.get(0);
+//        profit = (float[])tmp.get(1);
+//        len = weight.length;
+        len=testData.getNumItems();
+        ArrayList<Integer> weights=testData.getWeight();
+        ArrayList<Integer> values=testData.getValues();
+        for (int i=0;i<len;i++){
+            weight[i]=weights.get(i);
+            profit[i]=values.get(i);
+        }
     }
 
     //初始化初始种群
