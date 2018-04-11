@@ -21,6 +21,7 @@ import junit.framework.Test;
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import edu.tjut.algo.R;
 import edu.tjut.algo.adpter.DataViewAdapter;
@@ -120,10 +121,11 @@ public class HomeFragment extends Fragment {
                 Bundle bundle=msg.getData();
                 ResultData resultData=new ResultData(bundle.getInt("dataId"),bundle.getString("bestStr"),bundle.getFloat("time"),
                         bundle.getInt("method"),bundle.getDouble("percent"),bundle.getInt("resultValue"),
-                        bundle.getInt("nowWeight"),bundle.getInt("capacity"));
+                        bundle.getInt("nowWeight"),bundle.getInt("capacity"),  new Date());
                 if(resultData.save()){
                     refreshResultListView();
-                    Toast.makeText(getActivity(),"数据保存成功了！"+resultData.toString(),Toast.LENGTH_LONG).show();
+                    System.out.println("+++++++"+resultData.toString());
+                    Toast.makeText(getActivity(),"数据保存成功了！",Toast.LENGTH_LONG).show();
                 }
                 return false;
             }
@@ -136,10 +138,12 @@ public class HomeFragment extends Fragment {
                     ResultData resultData=simulatedAnnealing.make();
                     Bundle bundle=new Bundle();
                     bundle.putInt("dataId",resultData.getDataId());
+                bundle.putInt("method",resultData.getMethod());
+                bundle.putDouble("percent",resultData.getPercent());
                     bundle.putString("bestStr",resultData.getBestStr());
                     bundle.putFloat("time",resultData.getTime());
-                    bundle.putInt("method",resultData.getMethod());
-                    bundle.putDouble("percent",resultData.getPercent());
+
+
                 bundle.putInt("resultValue",resultData.getResultValue());
                 bundle.putInt("nowWeight",resultData.getNowWeight());
                 bundle.putInt("capacity",resultData.getCapacity());
@@ -163,7 +167,6 @@ public class HomeFragment extends Fragment {
     }
 
     private TestData getTxtData(int position){
-        System.out.println("==========================______"+position);
         TestData testData1 = null;
         switch (position){
             case 0:
@@ -194,7 +197,7 @@ public class HomeFragment extends Fragment {
         return null;
     }
     private void refreshResultListView(){
-        ArrayList<ResultData> resultDatas= (ArrayList<ResultData>) DataSupport.findAll(ResultData.class);
+        ArrayList<ResultData> resultDatas= (ArrayList<ResultData>) DataSupport.order("date desc").find(ResultData.class);
         ResultViewAdapter resultViewAdapter=new ResultViewAdapter(resultDatas);
         listView_result.setAdapter(resultViewAdapter);
     }

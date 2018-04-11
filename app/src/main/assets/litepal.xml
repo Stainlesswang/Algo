@@ -3,7 +3,7 @@
     //数据库名称
     <dbname value="result" />
     //设定当前的版本号
-    <version value="1" />
+    <version value="2" />
     //映射到ResultData 表结构
     <list>
         <mapping class="edu.tjut.algo.data.ResultData"/>

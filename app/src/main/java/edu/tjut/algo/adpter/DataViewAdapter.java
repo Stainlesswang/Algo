@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import edu.tjut.algo.R;
@@ -46,13 +47,27 @@ public class DataViewAdapter extends BaseAdapter {
         TextView numItems= (TextView) view.findViewById(R.id.numItems);
         TextView capacity= (TextView) view.findViewById(R.id.capacity);
         TextView optimalFitness= (TextView) view.findViewById(R.id.optimalFitness);
-        optimalFitness.setText("本数据最优解价值为:"+testData.getOptimalFitness());
-        numItems.setText("物品数量："+testData.getNumItems());
-        capacity.setText("背包容量："+testData.getCapacity());
+        TextView txt_ceshi= (TextView) view.findViewById(R.id.txt_ceshi);
+        LinearLayout data_layout= (LinearLayout) view.findViewById(R.id.data_layout);
 
+        if (position==0){
+            optimalFitness.setText("最优价值为:"+testData.getOptimalFitness());
+            numItems.setText("物品数量："+testData.getNumItems());
+            capacity.setText("背包容量："+testData.getCapacity());
             txt_id.setText("编号："+(position+1));
             txt_weight.setText("重量："+testData.getItems().get(position).getWeight());
             txt_value.setText("价值："+testData.getItems().get(position).getValue());
+        }else {
+            data_layout.setVisibility(View.GONE);
+            txt_ceshi.setVisibility(View.GONE);
+            optimalFitness.setVisibility(View.GONE);
+            numItems.setVisibility(View.GONE);
+            capacity.setVisibility(View.GONE);
+            txt_id.setText("编号："+(position+1));
+            txt_weight.setText("重量："+testData.getItems().get(position).getWeight());
+            txt_value.setText("价值："+testData.getItems().get(position).getValue());
+        }
+
 
         return view;
     }

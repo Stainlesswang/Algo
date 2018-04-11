@@ -1,6 +1,8 @@
 package edu.tjut.algo.data;
 import org.litepal.crud.DataSupport;
 
+import java.util.Date;
+
 /**
  * Created by Administrator on 2018/3/29.
  * 每次数据经过处理后的结果类
@@ -12,6 +14,7 @@ import org.litepal.crud.DataSupport;
  */
 public class ResultData extends DataSupport {
 
+
     private int id;
     private int dataId;//测试数据编号,根据编号来查找数据的所有属性
     private String bestStr;//对应的最优解字符串 解析字符串获取最优解
@@ -22,7 +25,9 @@ public class ResultData extends DataSupport {
     private int resultValue;
     private int nowWeight;//当前装入重量
     private int capacity;//背包容量
-    public ResultData(int dataId,String bestStr,float time,int method,double percent,int resultValue,int nowWeight,int capacity){
+    private Date date;
+    public ResultData(int dataId,String bestStr,float time,int method,double percent,int resultValue,
+                      int nowWeight,int capacity,Date date){
         this.dataId=dataId;
         this.bestStr=bestStr;
         this.time=time;
@@ -31,19 +36,29 @@ public class ResultData extends DataSupport {
         this.resultValue=resultValue;
         this.nowWeight=nowWeight;
         this.capacity=capacity;
+        this.date=date;
         if (!"".equals(bestStr)){
-            String temp="";
-            char[] a=bestStr.toCharArray();
-            for (int i=0;i<a.length;i++){
-                if ("1".equals(a[i])){
+            String temp = "";
+            int len = bestStr.length();
+            for (int i = 0; i < len; i++) {
+                if(Integer.parseInt(bestStr.substring(i, i + 1))==1){
                     temp+=i+1+";";
                 }
             }
             this.bianhao=temp;
         }
+
     }
     public ResultData(){
 
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public int getNowWeight() {
@@ -60,22 +75,6 @@ public class ResultData extends DataSupport {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
-    }
-
-    public int getResultValue() {
-        return resultValue;
-    }
-
-    public void setResultValue(int solValue) {
-        this.resultValue = resultValue;
-    }
-
-    public String getBianhao() {
-        return bianhao;
-    }
-
-    public void setBianhao(String bianhao) {
-        this.bianhao = bianhao;
     }
 
     public int getId() {
@@ -106,8 +105,27 @@ public class ResultData extends DataSupport {
         return bestStr;
     }
 
+    public int getResultValue() {
+        return resultValue;
+    }
+
+    public void setResultValue(int resultValue) {
+        this.resultValue = resultValue;
+    }
+
     public void setBestStr(String bestStr) {
-        this.bestStr = bestStr;
+        if (!"".equals(bestStr)){
+            String temp = "";
+            int len = bestStr.length();
+
+            for (int i = 0; i < len; i++) {
+               if(Integer.parseInt(bestStr.substring(i, i + 1))==1){
+                   temp+=i+1+";";
+               }
+                                       }
+            this.bianhao=temp;
+              }
+            this.bestStr = bestStr;
     }
 
     public float getTime() {
@@ -125,9 +143,19 @@ public class ResultData extends DataSupport {
     public void setMethod(int method) {
         this.method = method;
     }
+
+    public String getBianhao() {
+        return bianhao;
+    }
+
+    public void setBianhao(String bianhao) {
+        this.bianhao = bianhao;
+    }
+
     @Override
     public String toString() {
         return " id: "+id+" dataID: "+dataId+"bestStr: "+bestStr
-                +" Time: "+time+" Method: "+method+" percent: "+percent;
+                +" Time: "+time+" Method: "+method+" percent: "+percent+" bianhao: "+bianhao
+                +" resultValue: "+resultValue+" nowWeight: "+nowWeight +" capacity: "+capacity;
     }
 }

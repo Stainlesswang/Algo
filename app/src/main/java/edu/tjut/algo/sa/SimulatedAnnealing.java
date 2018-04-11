@@ -171,8 +171,10 @@ public class SimulatedAnnealing
         System.out.println("Size out of Capacity: " + solSize + "/" + capacity);
         resultData.setNowWeight(solSize);
         resultData.setCapacity(capacity);
-        System.out.println("Value: " + solValue );
         resultData.setResultValue(solValue);
+
+        System.out.println("Value: " + solValue );
+
         System.out.println("Number of perturbations to find: " + pOfBest);
         System.out.println("when the code id finish the tempval: "+tempVal);
         resultData.setDataId(dataId);
@@ -182,7 +184,6 @@ public class SimulatedAnnealing
             resultData.setMethod(1);
         }
         resultData.setTime(excTime);
-
         //充值参数哇兄弟
         foolish = false;//true选择效率较慢的爬山算法,false模拟退火算法 (false = Simulated Annealing, true = Foolish Hill-climber)
           tempVal = 60;//初始化温度 (40-60)

@@ -1,5 +1,6 @@
 package edu.tjut.algo.adpter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,13 @@ public class ResultViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_resultdata,null);
+        if (position % 2 == 0) {
+            int color1 = Color.argb(122,144,144,144);
+            view.setBackgroundColor(color1);
+
+        }
         TextView id= (TextView) view.findViewById(R.id.testdata_ID);
         TextView bianhao= (TextView) view.findViewById(R.id.testdata_bianhao);
         TextView resultValue= (TextView) view.findViewById(R.id.testdata_resultValue);
@@ -49,8 +56,8 @@ public class ResultViewAdapter extends BaseAdapter {
         bianhao.setText(""+resultDatas.get(position).getBianhao());
         resultValue.setText(""+resultDatas.get(position).getResultValue());
 
-        time.setText(""+resultDatas.get(position).getTime());
-        weight.setText(""+resultDatas.get(position).getNowWeight()+"/"+resultDatas.get(position).getCapacity());
+        weight.setText(""+resultDatas.get(position).getTime());
+        time.setText(""+resultDatas.get(position).getNowWeight()+"/"+resultDatas.get(position).getCapacity());
         percent.setText(""+resultDatas.get(position).getPercent()+"%");
         return view;
     }
