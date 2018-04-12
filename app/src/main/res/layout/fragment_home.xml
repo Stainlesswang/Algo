@@ -6,27 +6,32 @@
     tools:context="edu.tjut.algo.fragment.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/selctdata"
+        android:textColorLink="@color/colorPrimaryDark" />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="122dp"
-            android:layout_height="36dp"
-            android:text="@string/selctdata"
-            android:textColorLink="@color/colorPrimaryDark" />
-
+        <Spinner
+            android:id="@+id/sp_selectMethod"
+            android:layout_width="157dp"
+            android:layout_height="wrap_content"
+            android:entries="@array/method" />
         <Spinner
             android:id="@+id/sp_selectData"
-            android:layout_width="139dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:entries="@array/testdata" />
         <Button
             android:id="@+id/btn_do"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="37dp"
             android:text="@string/text_do" />
     </LinearLayout>
 

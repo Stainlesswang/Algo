@@ -3,9 +3,11 @@ package edu.tjut.algo.ga;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import edu.tjut.algo.data.ResultData;
 import edu.tjut.algo.data.TestData;
 
 /**
@@ -13,7 +15,7 @@ import edu.tjut.algo.data.TestData;
  * GA（遗传算法简称） 解决01 背包问题 遗传算法实体类，都放在ga包中
  */
 
-public class GAKnapsack {
+public class GAKnapsack implements MyMethod{
     private Random random = null; //随机数生成器
 
     private float[] weight = null; //物品重量
@@ -251,8 +253,9 @@ public class GAKnapsack {
     }
 
     //遗传算法
-    public void solve() {
+    public ResultData solve() {
         readDate();
+        long startTime=System.currentTimeMillis();
         initPopulation();
         for(int i = 0; i < maxgen; i++) {
             //计算种群适应度值
@@ -266,27 +269,47 @@ public class GAKnapsack {
             //发生变异
             aberra();
         }
+        //跳出while循环 记录结束时间，然后计算出总共执行时间
+        long endTime=System.currentTimeMillis();
+        float excTime=(float)(endTime-startTime)/1000;
+        System.out.println("执行时间："+excTime+"ms");
 
         int totalWeight = 0;
+        String bestStr="";
         for(int i = 0; i < bestUnit.length; i++) {
             if(bestUnit[i]){
                 totalWeight += weight[i];
+                bestStr+="1";
+            }
+            else {
+                bestStr+="0";
             }
         }
+        double percent=bestFitness/testData.getOptimalFitness()*100;
         System.out.println("total profit:" + bestFitness);
         System.out.println("total weight:" + totalWeight);
+        ResultData resultData=new ResultData();
+        resultData.setDataId(testData.getDataID());
+        resultData.setBestStr(bestStr);
+        resultData.setTime(excTime);
+        resultData.setCapacity(testData.getCapacity());
+        resultData.setResultValue((int) bestFitness);
+        resultData.setMethod(0);
+        resultData.setNowWeight(totalWeight);
+        resultData.setPercent(percent);
+       return resultData;
     }
 
-    public static void main(String[] args) {
-        File data = new File("D:\\WorkSpace\\data.txt");
-        //背包容量
-        //种群规模
-        //最大代数
-        //交叉率（所有的个体都需要相互交叉的，这里的交叉率指交叉时每位交叉发生交叉的可能性）
-        //变异率（某个个体发生变异的可能性）
-        //对于确定发生变异的个体每位发生变异的可能性
-        //物品重量和物品价值的数据文件
-        GAKnapsack gaKnapsack = new GAKnapsack(100, 200, 2000, 0.5f, 0.05f, 0.1f, data);
-        gaKnapsack.solve();
-    }
+//    public static void main(String[] args) {
+//        File data = new File("D:\\WorkSpace\\data.txt");
+//        //背包容量
+//        //种群规模
+//        //最大代数
+//        //交叉率（所有的个体都需要相互交叉的，这里的交叉率指交叉时每位交叉发生交叉的可能性）
+//        //变异率（某个个体发生变异的可能性）
+//        //对于确定发生变异的个体每位发生变异的可能性
+//        //物品重量和物品价值的数据文件
+//        GAKnapsack gaKnapsack = new GAKnapsack(100, 200, 2000, 0.5f, 0.05f, 0.1f, data);
+//        gaKnapsack.solve();
+//    }
 }

@@ -8,7 +8,9 @@ import java.util.TreeSet;
 
 import edu.tjut.algo.data.ResultData;
 import edu.tjut.algo.data.TestData;
-public class SimulatedAnnealing
+import edu.tjut.algo.ga.MyMethod;
+
+public class SimulatedAnnealing implements MyMethod
 {
     public static boolean foolish = false;//true选择效率较慢的爬山算法,false模拟退火算法 (false = Simulated Annealing, true = Foolish Hill-climber)
     public static double tempVal = 60;//初始化温度 (40-60)
@@ -68,7 +70,7 @@ public class SimulatedAnnealing
         this.offset=testData.getOffset();
     }
     public SimulatedAnnealing(){}
-    public ResultData make()
+    public ResultData solve()
     {
         //bit strings as a boolean array
         ResultData resultData=new ResultData();

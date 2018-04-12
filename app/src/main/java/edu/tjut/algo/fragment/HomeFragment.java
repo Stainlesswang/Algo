@@ -28,6 +28,8 @@ import edu.tjut.algo.adpter.DataViewAdapter;
 import edu.tjut.algo.adpter.ResultViewAdapter;
 import edu.tjut.algo.data.ResultData;
 import edu.tjut.algo.data.TestData;
+import edu.tjut.algo.ga.GAKnapsack;
+import edu.tjut.algo.ga.MyMethod;
 import edu.tjut.algo.sa.SimulatedAnnealing;
 import edu.tjut.algo.util.AlgoUtil;
 import edu.tjut.algo.util.TextEnum;
@@ -49,6 +51,7 @@ public class HomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private Spinner sp_selectData=null;
+    private Spinner sp_selectMethod=null;
     private Button  btn_do=null;
     private ListView listView_data=null;
     private ListView listView_result=null;
@@ -134,8 +137,21 @@ public class HomeFragment extends Fragment {
             @Override
             public void run() {
                     TestData data=getTxtData(sp_selectData.getSelectedItemPosition());
-                    SimulatedAnnealing simulatedAnnealing=new SimulatedAnnealing(data);
-                    ResultData resultData=simulatedAnnealing.make();
+                    MyMethod myMethod=null;
+                    switch (sp_selectMethod.getSelectedItemPosition()){
+                        case 0:
+                            myMethod=new GAKnapsack(200, 2000, 0.5f, 0.05f, 0.1f, data);
+                            break;
+                        case 1:
+                            myMethod=new SimulatedAnnealing(data);
+                            break;
+                        case 2:
+                            myMethod=new SimulatedAnnealing(data,true);
+                            break;
+
+                    }
+//                    SimulatedAnnealing simulatedAnnealing=new SimulatedAnnealing(data);
+                    ResultData resultData=myMethod.solve();
                     Bundle bundle=new Bundle();
                     bundle.putInt("dataId",resultData.getDataId());
                 bundle.putInt("method",resultData.getMethod());
@@ -202,6 +218,7 @@ public class HomeFragment extends Fragment {
         listView_result.setAdapter(resultViewAdapter);
     }
     private void  init(View view){
+        sp_selectMethod=(Spinner) view.findViewById(R.id.sp_selectMethod);
         sp_selectData= (Spinner) view.findViewById(R.id.sp_selectData);
         btn_do= (Button) view.findViewById(R.id.btn_do);
         listView_data= (ListView) view.findViewById(R.id.list_data);
