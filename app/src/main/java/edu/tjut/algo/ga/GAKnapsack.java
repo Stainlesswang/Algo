@@ -100,6 +100,8 @@ public class GAKnapsack implements MyMethod{
         len=testData.getNumItems();
         ArrayList<Integer> weights=testData.getWeight();
         ArrayList<Integer> values=testData.getValues();
+        weight=new float[len];
+        profit=new float[len];
         for (int i=0;i<len;i++){
             weight[i]=weights.get(i);
             profit[i]=values.get(i);
