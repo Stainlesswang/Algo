@@ -32,23 +32,14 @@ import edu.tjut.algo.ga.MyMethod;
 import edu.tjut.algo.sa.SimulatedAnnealing;
 import edu.tjut.algo.util.AlgoUtil;
 import edu.tjut.algo.util.TextEnum;
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link HomeFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HomeFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+
+
     private Spinner sp_selectData=null;
     private Spinner sp_selectMethod=null;
     private Button  btn_do=null;
@@ -57,23 +48,10 @@ public class HomeFragment extends Fragment {
     private Handler handler;
     private TestData testData;
     private ProgressDialog pd;
-
-
     private OnFragmentInteractionListener mListener;
-
     public HomeFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -94,12 +72,19 @@ public class HomeFragment extends Fragment {
 
     }
 
+
+
+
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=  inflater.inflate(R.layout.fragment_home, container, false);
         init(view);
         refreshResultListView();
+        //选择测试数据 下拉框
         sp_selectData.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -139,17 +124,16 @@ public class HomeFragment extends Fragment {
                     MyMethod myMethod=null;
                     switch (sp_selectMethod.getSelectedItemPosition()){
                         case 0:
-                            myMethod=new GAKnapsack(200, 2000, 0.5f, 0.05f, 0.1f, data);
+                            myMethod=new GAKnapsack(200, 2000, 0.5f, 0.05f, 0.1f, data);//遗传算法
                             break;
                         case 1:
-                            myMethod=new SimulatedAnnealing(data);
+                            myMethod=new SimulatedAnnealing(data);//模拟退火
                             break;
                         case 2:
-                            myMethod=new SimulatedAnnealing(data,true);
+                            myMethod=new SimulatedAnnealing(data,true);//爬山算法
                             break;
 
                     }
-//                    SimulatedAnnealing simulatedAnnealing=new SimulatedAnnealing(data);
                     ResultData resultData=myMethod.solve();
                     Bundle bundle=new Bundle();
                     bundle.putInt("dataId",resultData.getDataId());
@@ -157,8 +141,6 @@ public class HomeFragment extends Fragment {
                 bundle.putDouble("percent",resultData.getPercent());
                     bundle.putString("bestStr",resultData.getBestStr());
                     bundle.putFloat("time",resultData.getTime());
-
-
                 bundle.putInt("resultValue",resultData.getResultValue());
                 bundle.putInt("nowWeight",resultData.getNowWeight());
                 bundle.putInt("capacity",resultData.getCapacity());
@@ -168,6 +150,7 @@ public class HomeFragment extends Fragment {
             }
         };
 
+        //点击执行按钮监听
         btn_do.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

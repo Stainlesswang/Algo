@@ -69,13 +69,18 @@ public class DashboardFragment extends Fragment {
         }
     }
 
+
+    //重要的获取界面组建的方法
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+        //获取视图容器
         View view=inflater.inflate(R.layout.fragment_dashboard, container, false);
+//        根据控件ID获取相应组件
         LineChart lineChart= (LineChart)view.findViewById(R.id.chart2);
+        //填充数据
         List<Entry> entries=new ArrayList<Entry>();
         entries.add(0,new Entry(3f,2));
         entries.add(1,new Entry(5.0f,3));

@@ -23,6 +23,7 @@
             android:layout_width="157dp"
             android:layout_height="wrap_content"
             android:entries="@array/method" />
+
         <Spinner
             android:id="@+id/sp_selectData"
             android:layout_width="wrap_content"

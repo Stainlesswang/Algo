@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements DashboardFragment
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
+        //点击下部按钮切换fragment
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
@@ -69,7 +70,9 @@ public class MainActivity extends AppCompatActivity implements DashboardFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fl = (FrameLayout) findViewById(R.id.content);
+        //初始化底部三个切换按钮
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        //添加切换点击事件
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         initFragments();
 
@@ -94,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements DashboardFragment
         transaction.show(fragments[index]).commitAllowingStateLoss();
     }
 
+    //初始化三个fragment
     private void initFragments() {
         HomeFragment homeFragment = new HomeFragment();
         DashboardFragment dashboardFragment = new DashboardFragment();
