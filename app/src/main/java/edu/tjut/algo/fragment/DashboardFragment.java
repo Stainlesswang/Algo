@@ -1,6 +1,7 @@
 package edu.tjut.algo.fragment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,14 +10,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.tjut.algo.R;
+import edu.tjut.algo.data.ResultData;
+import edu.tjut.algo.data.TestData;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -81,21 +88,30 @@ public class DashboardFragment extends Fragment {
 //        根据控件ID获取相应组件
         LineChart lineChart= (LineChart)view.findViewById(R.id.chart2);
         //填充数据
-        List<Entry> entries=new ArrayList<Entry>();
-        entries.add(0,new Entry(3f,2));
-        entries.add(1,new Entry(5.0f,3));
-        entries.add(2,new Entry(8.0f,4));
-        entries.add(3,new Entry(4.0f,6));
-        entries.add(4,new Entry(5.4f,7));
-        entries.add(5,new Entry(7.0f,8));
-        entries.add(6,new Entry(9.0f,6));
-        entries.add(7,new Entry(10.0f,7));
-        entries.add(8,new Entry(8.5f,9));
-        entries.add(9,new Entry(9.0f,5));
-        LineDataSet dataSet=new LineDataSet(entries,"labe1");
-        LineData lineData=new LineData(dataSet);
-        lineChart.setData(lineData);
-        lineChart.invalidate();
+//       ArrayList<ResultData> resultDatas0= (ArrayList<ResultData>) DataSupport.where("method=0 and dataId=").find(ResultData.class);
+        ArrayList<ResultData> resultDatas1= (ArrayList<ResultData>) DataSupport.where("method=1").find(ResultData.class);
+        ArrayList<ResultData> resultDatas= (ArrayList<ResultData>) DataSupport.where("method=2 and dataId=1").find(ResultData.class);
+
+        ArrayList<Entry> values1 = new ArrayList<>();
+        ArrayList<Entry> values2 = new ArrayList<>();
+        for (int i=0;i<resultDatas.size();i++){
+            values2.add(new Entry(i,resultDatas.get(i).getTime()));
+        }
+        LineDataSet daaSet2=new LineDataSet(values2,"labe2");
+        LineData lineData2=new LineData(daaSet2);
+        lineChart.setData(lineData2);
+        lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        //创建描述信息
+        Description description =new Description();
+        description.setText("测试图表");
+        description.setTextColor(Color.RED);
+        description.setTextSize(20);
+        lineChart.setDescription(description);//设置图表描述信息
+        lineChart.setNoDataText("没有数据熬");//没有数据时显示的文字
+        lineChart.setNoDataTextColor(Color.BLUE);//没有数据时显示文字的颜色
+        lineChart.setDrawGridBackground(false);//chart 绘图区后面的背景矩形将绘制
+        lineChart.setDrawBorders(false);//禁止绘制图表边框的线
+        lineChart.invalidate();//重绘
         return view;
     }
 
