@@ -104,13 +104,18 @@ public class DashboardFragment extends Fragment {
 
         super.onPause();
     }
-
-
     @Override
-    public void onStart() {
-        Toast.makeText(getContext(), "onstart",Toast.LENGTH_LONG).show();
-        getChart(lineChart,"1");
-        super.onStart();
+
+    public void onHiddenChanged(boolean hidden) {
+
+        if (hidden) {
+
+            Toast.makeText(getContext(), "hidden",Toast.LENGTH_LONG).show();
+
+        } else {
+            getChart(lineChart,"1");
+        }
+
     }
     public void getChart(LineChart lineChart,String dataId){
         ArrayList<ResultData> resultDatas1= (ArrayList<ResultData>) DataSupport.where("method=0 and dataId="+dataId).find(ResultData.class);
@@ -121,7 +126,6 @@ public class DashboardFragment extends Fragment {
         ArrayList<Entry> values3 = new ArrayList<>();
         List<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
         if (resultDatas1.size()>0){
-            System.out.println("当前的resultDatas1++++++++++++++++++++++++");
             for (int i=0;i<resultDatas1.size();i++){
                 values1.add(new Entry(i+1,resultDatas1.get(i).getTime()));
             }
@@ -131,7 +135,6 @@ public class DashboardFragment extends Fragment {
             dataSets.add(set1);
         }
         if (resultDatas2.size()>0){
-            System.out.println("当前的resultDatas1++++++++++++++++++++++++");
             for (int i=0;i<resultDatas2.size();i++){
                 values2.add(new Entry(i+1,resultDatas2.get(i).getTime()));
             }
@@ -141,7 +144,6 @@ public class DashboardFragment extends Fragment {
             set2.setColors(new int[] { R.color.orangered }, getContext());
         }
         if (resultDatas3.size()>0){
-            System.out.println("当前的resultDatas1++++++++++++++++++++++++");
             for (int i=0;i<resultDatas3.size();i++){
                 values3.add(new Entry(i+1,resultDatas3.get(i).getTime()));
             }
