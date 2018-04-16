@@ -4,17 +4,22 @@ import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.ParcelUuid;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.data.LineScatterCandleRadarDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import org.litepal.crud.DataSupport;
 
@@ -42,6 +47,7 @@ public class DashboardFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private LineChart lineChart=null;
 
     private OnFragmentInteractionListener mListener;
 
@@ -81,25 +87,69 @@ public class DashboardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
         //获取视图容器
         View view=inflater.inflate(R.layout.fragment_dashboard, container, false);
 //        根据控件ID获取相应组件
-        LineChart lineChart= (LineChart)view.findViewById(R.id.chart2);
+         lineChart= (LineChart)view.findViewById(R.id.chart2);
         //填充数据
-//       ArrayList<ResultData> resultDatas0= (ArrayList<ResultData>) DataSupport.where("method=0 and dataId=").find(ResultData.class);
-        ArrayList<ResultData> resultDatas1= (ArrayList<ResultData>) DataSupport.where("method=1").find(ResultData.class);
-        ArrayList<ResultData> resultDatas= (ArrayList<ResultData>) DataSupport.where("method=2 and dataId=1").find(ResultData.class);
+        String dataId="1";
+        getChart(lineChart,dataId);
+        return view;
+    }
 
+    @Override
+    public void onPause() {
+        Toast.makeText(getContext(), "onPause",Toast.LENGTH_LONG).show();
+
+        super.onPause();
+    }
+
+
+    @Override
+    public void onStart() {
+        Toast.makeText(getContext(), "onstart",Toast.LENGTH_LONG).show();
+        getChart(lineChart,"1");
+        super.onStart();
+    }
+    public void getChart(LineChart lineChart,String dataId){
+        ArrayList<ResultData> resultDatas1= (ArrayList<ResultData>) DataSupport.where("method=0 and dataId="+dataId).find(ResultData.class);
+        ArrayList<ResultData> resultDatas2= (ArrayList<ResultData>) DataSupport.where("method=1 and dataId="+dataId).find(ResultData.class);
+        ArrayList<ResultData> resultDatas3= (ArrayList<ResultData>) DataSupport.where("method=2 and dataId="+dataId).find(ResultData.class);
         ArrayList<Entry> values1 = new ArrayList<>();
         ArrayList<Entry> values2 = new ArrayList<>();
-        for (int i=0;i<resultDatas.size();i++){
-            values2.add(new Entry(i,resultDatas.get(i).getTime()));
+        ArrayList<Entry> values3 = new ArrayList<>();
+        List<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+        if (resultDatas1.size()>0){
+            System.out.println("当前的resultDatas1++++++++++++++++++++++++");
+            for (int i=0;i<resultDatas1.size();i++){
+                values1.add(new Entry(i+1,resultDatas1.get(i).getTime()));
+            }
+            LineDataSet set1 = new LineDataSet(values1, "遗传算法");
+            set1.setAxisDependency(YAxis.AxisDependency.LEFT);
+            set1.setColors(new int[] { R.color.green }, getContext());
+            dataSets.add(set1);
         }
-        LineDataSet daaSet2=new LineDataSet(values2,"labe2");
-        LineData lineData2=new LineData(daaSet2);
-        lineChart.setData(lineData2);
+        if (resultDatas2.size()>0){
+            System.out.println("当前的resultDatas1++++++++++++++++++++++++");
+            for (int i=0;i<resultDatas2.size();i++){
+                values2.add(new Entry(i+1,resultDatas2.get(i).getTime()));
+            }
+            LineDataSet set2 = new LineDataSet(values2, "模拟退火算法");
+            set2.setAxisDependency(YAxis.AxisDependency.LEFT);
+            dataSets.add(set2);
+            set2.setColors(new int[] { R.color.orangered }, getContext());
+        }
+        if (resultDatas3.size()>0){
+            System.out.println("当前的resultDatas1++++++++++++++++++++++++");
+            for (int i=0;i<resultDatas3.size();i++){
+                values3.add(new Entry(i+1,resultDatas3.get(i).getTime()));
+            }
+            LineDataSet set3 = new LineDataSet(values3, "爬山算法");
+            set3.setAxisDependency(YAxis.AxisDependency.LEFT);
+            dataSets.add(set3);
+
+        }
         lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         //创建描述信息
         Description description =new Description();
@@ -107,14 +157,18 @@ public class DashboardFragment extends Fragment {
         description.setTextColor(Color.RED);
         description.setTextSize(20);
         lineChart.setDescription(description);//设置图表描述信息
-        lineChart.setNoDataText("没有数据熬");//没有数据时显示的文字
+        lineChart.setNoDataText("没有数据");//没有数据时显示的文字
         lineChart.setNoDataTextColor(Color.BLUE);//没有数据时显示文字的颜色
         lineChart.setDrawGridBackground(false);//chart 绘图区后面的背景矩形将绘制
         lineChart.setDrawBorders(false);//禁止绘制图表边框的线
+        //如果数据不为空  则填充数据
+        if (dataSets.size()>0){
+            LineData data=new LineData(dataSets);
+            lineChart.setData(data);
+        }
+        lineChart.notifyDataSetChanged();
         lineChart.invalidate();//重绘
-        return view;
     }
-
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

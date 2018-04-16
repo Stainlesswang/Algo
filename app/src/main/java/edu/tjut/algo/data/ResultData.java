@@ -8,13 +8,8 @@ import java.util.Date;
  * 每次数据经过处理后的结果类
  * 包括计算结果、耗费时间、哪个算法产生的、
  * 这是要存入数据库分析的东西
- * 下一步计划，先把方法修改了，给参数，给测试数据，返回该类封装成这个
- * 然后把这些类信息存入数据库
- * 然后想想办法怎么显示在图表中
  */
 public class ResultData extends DataSupport {
-
-
     private int id;
     private int dataId;//测试数据编号,根据编号来查找数据的所有属性
     private String bestStr;//对应的最优解字符串 解析字符串获取最优解
