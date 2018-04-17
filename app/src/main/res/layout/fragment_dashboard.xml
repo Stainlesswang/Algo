@@ -9,4 +9,10 @@
         android:layout_height="495dp"
         tools:layout_editor_absoluteY="8dp"
         tools:layout_editor_absoluteX="8dp" />
+
+    <Spinner
+        android:id="@+id/sp_selectChartData"
+        android:entries="@array/testdata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </FrameLayout>

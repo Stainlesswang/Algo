@@ -9,6 +9,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -29,6 +31,8 @@ import java.util.List;
 import edu.tjut.algo.R;
 import edu.tjut.algo.data.ResultData;
 import edu.tjut.algo.data.TestData;
+import edu.tjut.algo.util.AlgoUtil;
+import edu.tjut.algo.util.TextEnum;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,6 +52,7 @@ public class DashboardFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private LineChart lineChart=null;
+    private Spinner sp_selectChartData=null;
 
     private OnFragmentInteractionListener mListener;
 
@@ -92,9 +97,21 @@ public class DashboardFragment extends Fragment {
         View view=inflater.inflate(R.layout.fragment_dashboard, container, false);
 //        根据控件ID获取相应组件
          lineChart= (LineChart)view.findViewById(R.id.chart2);
+        sp_selectChartData= (Spinner) view.findViewById(R.id.sp_selectChartData);
         //填充数据
-        String dataId="1";
-        getChart(lineChart,dataId);
+        getChart(lineChart,"1");
+        sp_selectChartData.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String daID=position+1+"";
+                getChart(lineChart,daID);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         return view;
     }
 
@@ -167,6 +184,8 @@ public class DashboardFragment extends Fragment {
         if (dataSets.size()>0){
             LineData data=new LineData(dataSets);
             lineChart.setData(data);
+        }else {
+            lineChart.clear();
         }
         lineChart.notifyDataSetChanged();
         lineChart.invalidate();//重绘
