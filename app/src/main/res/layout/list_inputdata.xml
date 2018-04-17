@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5pt" >
+
+        <ImageView
+            android:id="@+id/imageView_headpic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10pt"
+            android:layout_marginTop="5pt"
+            android:src="@mipmap/splashtop" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5pt"
+            android:layout_marginLeft="7pt"
+            android:layout_marginTop="5pt"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView_inputDataId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="物品 编号"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#367EAA" />
+
+            <TextView
+                android:id="@+id/textView_inputDataWeigh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="重量"
+                android:textColor="#818095" />
+
+            <TextView
+                android:id="@+id/textView_inputDataValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="价格"
+                android:textColor="#818095" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

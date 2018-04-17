@@ -6,6 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+
 import edu.tjut.algo.R;
 public class EditFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
@@ -14,7 +18,11 @@ public class EditFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private EditText weight=null;
+    private EditText value=null;
+    private Button btn_add=null;
+    private Button btn_finshAdd=null;
+    private ListView input_list=null;
     private OnFragmentInteractionListener mListener;
 
     public EditFragment() {
@@ -42,7 +50,8 @@ public class EditFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_edit, container, false);
+        View view=inflater.inflate(R.layout.fragment_edit, container, false);
+        return view;
     }
 
     public void onButtonPressed(Uri uri) {

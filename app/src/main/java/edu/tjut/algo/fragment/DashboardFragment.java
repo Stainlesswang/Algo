@@ -185,6 +185,7 @@ public class DashboardFragment extends Fragment {
             LineData data=new LineData(dataSets);
             lineChart.setData(data);
         }else {
+            //如果当前数据查询为空  则把界面上的原来的数据清空
             lineChart.clear();
         }
         lineChart.notifyDataSetChanged();

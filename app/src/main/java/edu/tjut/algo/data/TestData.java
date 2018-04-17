@@ -12,9 +12,12 @@ public class TestData {
     //所包含的物品
     private ArrayList<Item> items=new ArrayList<>();
     private int capacity;//背包容量
+    private  int numItems;//物品数量
+
+
+
     private boolean[] optimal;//最优解的bool数组
     private double optimalFitness;//已知最优解的总价值
-    private  int numItems;//物品数量
     private int totalValue = 0;//所有物品总价值
     //penalty，offset是一定规则算出的物品误差偏移值，可以不用考虑
     double penalty = 0;
@@ -42,7 +45,21 @@ public class TestData {
             items.add(item);
         }
     }
-
+    public TestData(ArrayList<Integer> weight, ArrayList<Integer> values, int capacity,
+                    int numItems){
+        this.weight=weight;
+        this.values=values;
+        this.capacity=capacity;
+        this.numItems=numItems;
+        for(int i = 0; i < numItems; i++)
+        {
+            Item item=new Item();
+            item.setWeight(weight.get(i));
+            item.setValue(values.get(i));
+            item.setDataID(dataID);
+            items.add(item);
+        }
+    }
     public int getDataID() {
         return dataID;
     }

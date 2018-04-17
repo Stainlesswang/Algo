@@ -2,8 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-
+    android:orientation="vertical"
+    android:weightSum="1">
+<LinearLayout
+    android:orientation="vertical"
+    android:id="@+id/linearLayout_inputButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <TextView
         android:id="@+id/textView0"
         android:layout_width="match_parent"
@@ -18,18 +23,15 @@
         android:layout_height="30dp"
         android:background="#C4C4C4"
         android:gravity="center|left"
-        android:text="录入物品信息"
+        android:text="物品重量"
         android:textSize="15dp" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/editText"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:gravity="top|left"
-        android:textSize="15dp"
+        android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="请您录入至少五个物品的重量和价值信息！" >
-    </EditText>
+        android:inputType="number" />
 
     <TextView
         android:id="@+id/textView2"
@@ -37,32 +39,83 @@
         android:layout_height="30dp"
         android:background="#C4C4C4"
         android:gravity="center|left"
-        android:text="反馈内容"
+        android:text="物品价值"
         android:textSize="15dp" />
 
     <EditText
         android:id="@+id/editText2"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:gravity="top|left"
-        android:textSize="15dp"
+        android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="在此选择算法求最优解物品组合！" >
-    </EditText>
+        android:inputType="number" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_endAdd"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="#FF8C00"
+            android:text="结束录入"
+            android:textColor="#FFFFFF" />
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="#FF8C00"
+            android:text="录入"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+</LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-
-        <Button
-            android:id="@+id/button1"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout_do"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/textView3"
             android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="#C4C4C4"
+            android:gravity="center|left"
+            android:text="执行算法"
+            android:textSize="15dp" />
+        <Spinner
+            android:id="@+id/sp_input_selectMethod"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/method"/>
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="#C4C4C4"
+            android:gravity="center|left"
+            android:text="背包重量"
+            android:textSize="15dp" />
+        <EditText
+            android:id="@+id/input_capacity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number" />
+        <Button
+            android:id="@+id/btn_do"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:background="#FF8C00"
             android:text="执行"
             android:textColor="#FFFFFF" />
-
     </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/list_inputList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.44" />
 
 </LinearLayout>

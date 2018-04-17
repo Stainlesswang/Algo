@@ -31,6 +31,7 @@ public class SimulatedAnnealing implements MyMethod
     private double optimalFitness;
     private ArrayList<Integer> values = new ArrayList<Integer>();//所有物品价值的数组
     private ArrayList<Integer> sizes = new ArrayList<Integer>();//物品体积的数组
+
     private double penalty = 0;
     private double offset = 0;
     private int dataId=0;
@@ -49,7 +50,8 @@ public class SimulatedAnnealing implements MyMethod
         this.totalValue=testData.getTotalValue();
         this.optimal=testData.getOptimal();
         this.values=testData.getValues();
-        this.sizes=testData.getWeight();this.dataId=testData.getDataID();
+        this.sizes=testData.getWeight();
+        this.dataId=testData.getDataID();
         this.optimalFitness=testData.getOptimalFitness();
 
     }
@@ -160,8 +162,10 @@ public class SimulatedAnnealing implements MyMethod
                 solStr += "0";
         }
         resultData.setBestStr(solStr);
-        double percent = (solValue/optimalFitness)*100;
-        resultData.setPercent(percent);
+        if (optimalFitness>0){
+            double percent = (solValue/optimalFitness)*100;
+            resultData.setPercent(percent);
+        }
         System.out.println("Size out of Capacity: " + solSize + "/" + capacity);
         resultData.setNowWeight(solSize);
         resultData.setCapacity(capacity);
@@ -220,8 +224,6 @@ public class SimulatedAnnealing implements MyMethod
         //Get the chromosome's value
         int runningValue = getChromValue(c);//当前组合的总价值
         int runningSize = getChromSize(c);//当前组合的总体积
-        System.out.println(runningSize+"___________________________________++++++++++++");
-
         //判断当前体积是否大于背包容量
         if( runningSize > capacity )
         {
