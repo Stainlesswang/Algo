@@ -20,7 +20,7 @@ public class InputDataViewAdapter extends BaseAdapter {
     }
     @Override
     public int getCount() {
-        return 0;
+        return testDat.getItems().size();
     }
 
     @Override
