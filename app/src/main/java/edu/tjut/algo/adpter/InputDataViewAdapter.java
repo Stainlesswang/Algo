@@ -20,7 +20,7 @@ public class InputDataViewAdapter extends BaseAdapter {
     }
     @Override
     public int getCount() {
-        return testDat.getNumItems();
+        return 0;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class InputDataViewAdapter extends BaseAdapter {
         TextView textView_inputDataValue= (TextView) view.findViewById(R.id.textView_inputDataValue);
         textView_inputDataId.setText("物品编号： "+position);
         textView_inputDataWeigh.setText(testDat.getItems().get(position).getWeight()+"kg");
-        textView_inputDataValue.setText(testDat.getItems().get(position).getValue()+"$");
+        textView_inputDataValue.setText(testDat.getItems().get(position).getValue()+"元");
         return view;
     }
 }

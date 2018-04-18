@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/fragment_edit"
     android:orientation="vertical"
     android:weightSum="1">
     <TextView
@@ -57,16 +58,12 @@
             android:id="@+id/btn_endAdd"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:background="#FF8C00"
-            android:text="结束录入"
-            android:textColor="#FFFFFF" />
+            android:text="结束录入" />
         <Button
             android:id="@+id/btn_add"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:background="#FF8C00"
-            android:text="录入"
-            android:textColor="#FFFFFF" />
+            android:text="录入" />
     </LinearLayout>
 
 </LinearLayout>
@@ -81,7 +78,7 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:background="#C4C4C4"
+            android:background="@color/rosybrown"
             android:gravity="center|left"
             android:text="选择算法"
             android:textSize="15dp" />
@@ -94,7 +91,7 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:background="#C4C4C4"
+            android:background="@color/rosybrown"
             android:gravity="center|left"
             android:text="填写背包重量:"
             android:textSize="15dp" />
@@ -105,13 +102,22 @@
             android:ems="10"
             android:hint="背包容量不能小于重量最小的物品"
             android:inputType="number" />
-        <Button
-            android:id="@+id/btn_inputDo"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FF8C00"
-            android:text="执行"
-            android:textColor="#FFFFFF" />
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_inputDo"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="执行" />
+            <Button
+                android:id="@+id/btn_chongzhi"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="重置界面" />
+        </LinearLayout>
     </LinearLayout>
 
 

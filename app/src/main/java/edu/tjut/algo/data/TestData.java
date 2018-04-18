@@ -60,6 +60,20 @@ public class TestData {
             items.add(item);
         }
     }
+    public TestData(ArrayList<Integer> weight, ArrayList<Integer> values,
+                    int numItems){
+        this.weight=weight;
+        this.values=values;
+        this.numItems=numItems;
+        for(int i = 0; i < numItems; i++)
+        {
+            Item item=new Item();
+            item.setWeight(weight.get(i));
+            item.setValue(values.get(i));
+            item.setDataID(dataID);
+            items.add(item);
+        }
+    }
     public int getDataID() {
         return dataID;
     }

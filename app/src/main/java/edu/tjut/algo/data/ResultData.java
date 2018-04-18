@@ -1,7 +1,10 @@
 package edu.tjut.algo.data;
+import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/3/29.
@@ -21,6 +24,8 @@ public class ResultData extends DataSupport {
     private int nowWeight;//当前装入重量
     private int capacity;//背包容量
     private Date date;
+    @Column(ignore = true)
+    private ArrayList<Integer> listPosition=new ArrayList<>();
     public ResultData(int dataId,String bestStr,float time,int method,double percent,int resultValue,
                       int nowWeight,int capacity,Date date){
         this.dataId=dataId;
@@ -37,6 +42,7 @@ public class ResultData extends DataSupport {
             int len = bestStr.length();
             for (int i = 0; i < len; i++) {
                 if(Integer.parseInt(bestStr.substring(i, i + 1))==1){
+                    listPosition.add(i);
                     temp+=i+1+";";
                 }
             }
@@ -46,6 +52,14 @@ public class ResultData extends DataSupport {
     }
     public ResultData(){
 
+    }
+
+    public ArrayList<Integer> getListPosition() {
+        return listPosition;
+    }
+
+    public void setListPosition(ArrayList<Integer> listPosition) {
+        this.listPosition = listPosition;
     }
 
     public Date getDate() {
