@@ -166,7 +166,8 @@ public class EditFragment extends Fragment {
                         .setPositiveButton("确定",new DialogInterface.OnClickListener() {//设置确定按钮
                             @Override//处理确定按钮点击事件
                             public void onClick(DialogInterface dialog, int which) {
-                                chReplaceFrag(new EditFragment(),null,false);
+                                //清空数据啥的
+                                chReplaceFrag();
                             }
                         })
                         .setNegativeButton("取消",new DialogInterface.OnClickListener() {//设置取消按钮
@@ -252,13 +253,10 @@ public class EditFragment extends Fragment {
         linearLayout_do= (LinearLayout) view.findViewById(R.id.linearLayout_do);
         linearLayout_inputButton= (LinearLayout) view.findViewById(R.id.linearLayout_inputButton);
     }
-    public void chReplaceFrag(Fragment fragment,String tag,boolean isBackStack) {
-        android.support.v4.app.FragmentManager fManager=getFragmentManager();
-        FragmentTransaction fTransaction = fManager.beginTransaction();
-        fTransaction.replace(R.id.container, fragment, tag);
-        if (isBackStack) {
-            fTransaction.addToBackStack(tag);
-        }
-        fTransaction.commit();
+    public void chReplaceFrag() {
+       weights.clear();values.clear();linearLayout_do.setVisibility(View.GONE); linearLayout_inputButton.setVisibility(View.VISIBLE);
+        testData=new TestData(weights,values,weights.size());
+        InputDataViewAdapter inputDataViewAdapter=new InputDataViewAdapter(testData);
+        input_list.setAdapter(inputDataViewAdapter);
     }
 }
