@@ -157,17 +157,19 @@ public class DashboardFragment extends Fragment {
             }
             LineDataSet set3 = new LineDataSet(values3, "爬山算法");
             set3.setAxisDependency(YAxis.AxisDependency.LEFT);
+            set3.setColors(new int[] { R.color.black }, getContext());
+            set3.setCircleColors(new int[] { R.color.black }, getContext());
             dataSets.add(set3);
 
         }
         lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         //创建描述信息
         Description description =new Description();
-        description.setText("测试图表");
+        description.setText("图表展示");
         description.setTextColor(Color.RED);
         description.setTextSize(20);
         lineChart.setDescription(description);//设置图表描述信息
-        lineChart.setNoDataText("没有数据");//没有数据时显示的文字
+        lineChart.setNoDataText("没有数据，请执行算法后重新进入");//没有数据时显示的文字
         lineChart.setNoDataTextColor(Color.BLUE);//没有数据时显示文字的颜色
         lineChart.setDrawGridBackground(false);//chart 绘图区后面的背景矩形将绘制
         lineChart.setDrawBorders(false);//禁止绘制图表边框的线
