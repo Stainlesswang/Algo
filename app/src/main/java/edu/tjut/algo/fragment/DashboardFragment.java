@@ -115,24 +115,13 @@ public class DashboardFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onPause() {
-        Toast.makeText(getContext(), "onPause",Toast.LENGTH_LONG).show();
 
-        super.onPause();
-    }
     @Override
 
     public void onHiddenChanged(boolean hidden) {
-
-        if (hidden) {
-
-            Toast.makeText(getContext(), "hidden",Toast.LENGTH_LONG).show();
-
-        } else {
+        if (!hidden) {
             getChart(lineChart,"1");
         }
-
     }
     public void getChart(LineChart lineChart,String dataId){
         ArrayList<ResultData> resultDatas1= (ArrayList<ResultData>) DataSupport.where("method=0 and dataId="+dataId).find(ResultData.class);
@@ -149,6 +138,7 @@ public class DashboardFragment extends Fragment {
             LineDataSet set1 = new LineDataSet(values1, "遗传算法");
             set1.setAxisDependency(YAxis.AxisDependency.LEFT);
             set1.setColors(new int[] { R.color.green }, getContext());
+            set1.setCircleColors( new int[] { R.color.green }, getContext() );
             dataSets.add(set1);
         }
         if (resultDatas2.size()>0){
@@ -159,6 +149,7 @@ public class DashboardFragment extends Fragment {
             set2.setAxisDependency(YAxis.AxisDependency.LEFT);
             dataSets.add(set2);
             set2.setColors(new int[] { R.color.orangered }, getContext());
+            set2.setCircleColors(new int[] { R.color.orangered }, getContext());
         }
         if (resultDatas3.size()>0){
             for (int i=0;i<resultDatas3.size();i++){
