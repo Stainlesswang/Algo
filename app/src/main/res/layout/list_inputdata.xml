@@ -28,21 +28,21 @@
 
             <TextView
                 android:id="@+id/textView_inputDataId"
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:text="物品 编号"
                 android:textColor="#367EAA" />
 
             <TextView
                 android:id="@+id/textView_inputDataWeigh"
-                android:layout_width="48dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="重量"
                 android:textColor="#818095" />
 
             <TextView
                 android:id="@+id/textView_inputDataValue"
-                android:layout_width="48dp"
+                android:layout_width="235dp"
                 android:layout_height="wrap_content"
                 android:text="价格"
                 android:textColor="#818095" />

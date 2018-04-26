@@ -278,15 +278,18 @@ public class GAKnapsack implements MyMethod{
 
         int totalWeight = 0;
         String bestStr="";
-        for(int i = 0; i < bestUnit.length; i++) {
-            if(bestUnit[i]){
-                totalWeight += weight[i];
-                bestStr+="1";
-            }
-            else {
-                bestStr+="0";
+        if (bestUnit.length>0){
+            for(int i = 0; i < bestUnit.length; i++) {
+                if(bestUnit[i]){
+                    totalWeight += weight[i];
+                    bestStr+="1";
+                }
+                else {
+                    bestStr+="0";
+                }
             }
         }
+
         double percent=bestFitness/testData.getOptimalFitness()*100;
         System.out.println("total profit:" + bestFitness);
         System.out.println("total weight:" + totalWeight);

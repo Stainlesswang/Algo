@@ -21,6 +21,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 
 import edu.tjut.algo.R;
@@ -89,8 +91,20 @@ public class EditFragment extends Fragment {
                 if ("".equals(weight.getText().toString()) || "".equals(value.getText().toString())){
                     Toast.makeText(getContext(), "重量和价值必须全部填写",Toast.LENGTH_LONG).show();
                 }else {
-                    weights.add(Integer.valueOf(weight.getText().toString()));
-                    values.add(Integer.valueOf(value.getText().toString()));
+                    final  String wei=weight.getText().toString();
+
+                    final  String va=value.getText().toString();
+
+                    try {
+                        final int a=Integer.parseInt(wei);
+                        final int b=Integer.parseInt(va);
+                        weights.add(a);
+                        values.add(b);
+                    }catch (NumberFormatException e){
+                        Toast.makeText(getContext(), "您输入的数太大了  超过了整数表示范围",Toast.LENGTH_LONG).show();
+
+                    }
+
                     weight.getText().clear();
                     value.getText().clear();
                     testData=new TestData(weights,values,weights.size());
@@ -147,8 +161,19 @@ public class EditFragment extends Fragment {
         btn_inputDo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ("".equals(input_capacity.getText().toString())){
-                    Toast.makeText(getContext(), "还没有输入背包容量",Toast.LENGTH_LONG).show();
+                String ca=input_capacity.getText().toString();
+                int a=0;
+                for (int i=0;i<weights.size();i++){
+                    a+=weights.get(i);
+                }
+                if ("".equals(ca)||ca.startsWith("0")){
+                    Toast.makeText(getContext(), "背包容量错误",Toast.LENGTH_LONG).show();
+                }else if(Integer.parseInt(ca)<Collections.min(weights)) {
+                    Toast.makeText(getContext(), "您的包太小了，一个也装不下，您还是走吧",Toast.LENGTH_LONG).show();
+
+                }else if(Integer.parseInt(ca)>a) {
+                    Toast.makeText(getContext(), "您的包足够大了，都拿走！",Toast.LENGTH_LONG).show();
+
                 }else {
                     //点击运行，开启新的线程，并将结果返回到当前界面显示出来 并且存储到数据库中
                     pd = ProgressDialog.show(getContext(), "算法进行中", "正在努力计算，请稍后……");
@@ -196,6 +221,9 @@ public class EditFragment extends Fragment {
                         View  view1=input_list.getChildAt(list.get(j)-input_list.getFirstVisiblePosition());
                         view1.setBackgroundColor(getResources().getColor(R.color.darkseagreen));
                     }
+                }else {
+                    Toast.makeText(getContext(), "没有匹配的结果，请检查测试数据！",Toast.LENGTH_LONG).show();
+
                 }
 
                 return false;
@@ -232,6 +260,10 @@ public class EditFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+        if (pd!=null){
+            pd.dismiss();// 关闭ProgressDialog
+        }
+
         mListener = null;
     }
 
@@ -254,9 +286,13 @@ public class EditFragment extends Fragment {
         linearLayout_inputButton= (LinearLayout) view.findViewById(R.id.linearLayout_inputButton);
     }
     public void chReplaceFrag() {
-       weights.clear();values.clear();linearLayout_do.setVisibility(View.GONE); linearLayout_inputButton.setVisibility(View.VISIBLE);
+       weights.clear();
+        values.clear();
+        linearLayout_do.setVisibility(View.GONE);
+        linearLayout_inputButton.setVisibility(View.VISIBLE);
         testData=new TestData(weights,values,weights.size());
         InputDataViewAdapter inputDataViewAdapter=new InputDataViewAdapter(testData);
         input_list.setAdapter(inputDataViewAdapter);
     }
+
 }
